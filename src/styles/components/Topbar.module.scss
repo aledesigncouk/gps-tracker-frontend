@@ -1,0 +1,11 @@
+@import '@styles/settings/_settings';
+
+.topbar {
+	position: sticky;
+	height: 100px;
+	margin-left: 200px;
+
+	background-color: #3b3b3b;
+	color: #ffffff;
+	padding: 1rem;
+}
