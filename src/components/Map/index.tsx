@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic'
 
-const DynamicMap = dynamic(() => import('./DynamicMap.tsx'), {
+const DynamicMap = dynamic(() => import('./DynamicMap'), {
 	ssr: false
 })
 
