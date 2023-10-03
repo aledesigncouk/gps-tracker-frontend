@@ -1,7 +1,6 @@
 import Map from '@components/Map'
 import Sidebar from '@components/Sidebar'
 import Topbar from '@components/Topbar'
-// import Button from '@components/Button'
 
 import styles from '@styles/Home.module.scss'
 
