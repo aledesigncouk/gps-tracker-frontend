@@ -3,6 +3,7 @@
 .sidebar {
 	width: 200px;
 	height: 100vh;
+	z-index: 999;
 	left: 0;
 	position: fixed;
 	outline: blue 1px solid;
