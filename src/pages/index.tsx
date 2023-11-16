@@ -1,15 +1,22 @@
+import React, { useEffect, useState } from 'react'
 import Map from '@components/Map'
-import Sidebar from '@components/Sidebar'
+// import Sidebar from '@components/Sidebar'
 import Topbar from '@components/Topbar'
+
+import { fetchData, geoJsonConverter } from '@utils/index'
 
 import styles from '@styles/Home.module.scss'
 
 const DEFAULT_CENTER = [52.6680064, -2.490368]
 
 export default function Home() {
+	const data = fetchData()
+
+	console.log('data:', data)
+
 	return (
 		<main className={styles.home}>
-			<Sidebar />
+			{/* <Sidebar /> */}
 			<Topbar />
 			<Map width='800' height='400' center={DEFAULT_CENTER} zoom={12}>
 				{({ TileLayer, Marker, Popup }) => (
