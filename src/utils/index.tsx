@@ -32,6 +32,8 @@ export const getTrackByRange = () => {
 }
 
 /* convert data from database format to geojson
+
+filtro a monte (nella richiesta)
 ****** INPUT
 {
   "points": [
@@ -39,6 +41,8 @@ export const getTrackByRange = () => {
       "id": 1,
       "datatime": "2014-06-01 01:12:26", // properties: { year: '2022' },
       "created": "2014-06-01 01:12:26",
+
+	  // return from server only the list of coords
       "lat": "52.660900",
       "lon": "-2.482342" // geometry: { type: 'LineString', coordinates: [...]
     },
@@ -46,13 +50,16 @@ export const getTrackByRange = () => {
   ]
 }
 
+for all 
+	datatime YYYY-MM-DD => property 
+
 ***** OUTPUT
 {
 	type: 'FeatureCollection',
 	features: [
 		{
 			type: 'Feature',
-			properties: { year: '2022' },
+			properties: { year: '2022' }, // do not set properties for now
 			geometry: {
 				type: 'LineString',
 				coordinates: [
@@ -71,4 +78,4 @@ export const getTrackByRange = () => {
 	]
 }
  */
-export const geoJsonConverter = (data) => {}
+export const geoJsonConverter = (input) => {}
