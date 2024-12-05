@@ -3,16 +3,15 @@ import Map from '@components/Map'
 // import Sidebar from '@components/Sidebar'
 import Topbar from '@components/Topbar'
 
-import { fetchData, geoJsonConverter } from '@utils/index'
+import { useFetchDataByYear } from '@utils/index'
 
 import styles from '@styles/Home.module.scss'
 
 const DEFAULT_CENTER = [52.6680064, -2.490368]
 
 export default function Home() {
-	const data = fetchData()
+	const data = useFetchDataByYear()
 
-	console.log('data:', data)
 
 	return (
 		<main className={styles.home}>
