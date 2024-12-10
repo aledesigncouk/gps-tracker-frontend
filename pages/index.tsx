@@ -2,20 +2,18 @@ import React, { useEffect, useState } from 'react'
 import Map from '@components/Map'
 // import Sidebar from '@components/Sidebar'
 import Topbar from '@components/Topbar'
-
-import { useFetchDataByYear } from '@utils/index'
+import Track from '@components/Track'
 
 import styles from '@styles/Home.module.scss'
 
 const DEFAULT_CENTER = [52.6680064, -2.490368]
 
 export default function Home() {
-	const data = useFetchDataByYear()
-
-
+	
 	return (
 		<main className={styles.home}>
 			{/* <Sidebar /> */}
+			<Track />
 			<Topbar />
 			<Map width='800' height='400' center={DEFAULT_CENTER} zoom={12}>
 				{({ TileLayer, Marker, Popup }) => (
