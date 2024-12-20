@@ -1,10 +1,11 @@
-import { Button } from 'react-bootstrap'
+import Button from 'react-bootstrap/Button'
+import YearSelector from '@components/YearSelector'
 import SelectorDataRange from '@components/SelectorDataRange'
 import { useState } from 'react'
 import styles from '@styles/Topbar.module.scss'
 import SelectedTrack from '@components/SelectedTrack'
 
-const Topbar = ({ setYear }) => {
+const Topbar = ({ setYear }): JSX.Element => {
 	const [inputValue, setInputValue] = useState('');
 
 	const handleClick = () => {
@@ -13,11 +14,13 @@ const Topbar = ({ setYear }) => {
 
 	return (
 		<>
-		
+
 			<div className={styles.topbar}>
-			<SelectedTrack year={inputValue} />
-				{/* <Button variant='primary'>fetch</Button>  */}
-				{/* <div>
+				<YearSelector onSelect={setYear} />
+				{/* <SelectedTrack year={inputValue} /> */}
+
+				{/* <Button variant='primary'>fetch</Button> 
+				<div>
 					From
 					<SelectorDataRange />
 				</div>
@@ -26,14 +29,14 @@ const Topbar = ({ setYear }) => {
 					<SelectorDataRange />
 				</div> */}
 
-				<input
+				{/* <input
 					type="text"
 					value={inputValue}
 					onChange={(e) => setInputValue(e.target.value)}
 					placeholder="Type something"
 				/>
 
-				<button onClick={handleClick}>Submit</button>
+				<Button variant='primary' onClick={handleClick}>Set track</Button> */}
 			</div>
 
 		</>
