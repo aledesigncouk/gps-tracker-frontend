@@ -9,10 +9,7 @@ import styles from '@styles/Map.module.scss'
 
 const { MapContainer } = ReactLeaflet
 
-// const markerPos = [52.6680064, -2.490368]
-
 const red = { color: 'red' }
-
 
 const Map = ({ children, className, width, height, year, ...rest }) => {
 	let mapClassName = styles.map
@@ -49,12 +46,6 @@ const Map = ({ children, className, width, height, year, ...rest }) => {
 	return (
 		<MapContainer className={mapClassName} {...rest}>
 			{children(ReactLeaflet, Leaflet)}
-
-			{/* <Marker position={markerPos}>
-				<Popup>
-					A pretty CSS3 popup. <br /> Easily customizable.
-				</Popup>
-			</Marker> */}
 
 			{track && <Polyline
 				positions={track?.geometry?.coordinates}
