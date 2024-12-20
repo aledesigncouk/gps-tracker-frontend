@@ -1,28 +1,39 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import Leaflet from 'leaflet'
 import * as ReactLeaflet from 'react-leaflet'
-import { Polyline, Marker, Popup } from 'react-leaflet'
-
-import { track1, track2 } from '@mocks/index'
+import { Polyline } from 'react-leaflet'
+import { getTrackByYear } from 'src/utils'
 
 import 'leaflet/dist/leaflet.css'
 import styles from '@styles/Map.module.scss'
 
 const { MapContainer } = ReactLeaflet
 
-const markerPos = [52.6680064, -2.490368]
+// const markerPos = [52.6680064, -2.490368]
 
-const lime = { color: 'lime' }
 const red = { color: 'red' }
 
-// console.log('track >>> ', track.features[0].geometry.coordinates)
 
-const Map = ({ children, className, width, height, ...rest }) => {
+const Map = ({ children, className, width, height, year, ...rest }) => {
 	let mapClassName = styles.map
 
 	if (className) {
 		mapClassName = `${mapClassName} ${className}`
 	}
+
+	const [track, setTrack] = useState(null);
+	
+	  useEffect(() => {
+		const fetchData = async () => {
+		  if (year) {
+			const result = await getTrackByYear(year);
+			setTrack(result);
+		  }
+		};
+	
+		fetchData();
+	
+	  }, [year])
 
 	useEffect(() => {
 		;(async function init() {
@@ -39,20 +50,16 @@ const Map = ({ children, className, width, height, ...rest }) => {
 		<MapContainer className={mapClassName} {...rest}>
 			{children(ReactLeaflet, Leaflet)}
 
-			<Marker position={markerPos}>
+			{/* <Marker position={markerPos}>
 				<Popup>
 					A pretty CSS3 popup. <br /> Easily customizable.
 				</Popup>
-			</Marker>
+			</Marker> */}
 
-			<Polyline
-				positions={track1.features[0].geometry.coordinates}
-				pathOptions={lime}
-			/>
-			<Polyline
-				positions={track2.features[0].geometry.coordinates}
+			{track && <Polyline
+				positions={track?.geometry?.coordinates}
 				pathOptions={red}
-			/>
+			/>}
 		</MapContainer>
 	)
 }

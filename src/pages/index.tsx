@@ -1,21 +1,19 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import Map from '@components/Map'
-// import Sidebar from '@components/Sidebar'
 import Topbar from '@components/Topbar'
-import Track from '@components/Track'
 
 import styles from '@styles/Home.module.scss'
 
 const DEFAULT_CENTER = [52.6680064, -2.490368]
 
 export default function Home() {
+
+	const [ year, setYear ] = useState('');
 	
 	return (
 		<main className={styles.home}>
-			{/* <Sidebar /> */}
-			<Track />
-			<Topbar />
-			<Map width='800' height='400' center={DEFAULT_CENTER} zoom={12}>
+			<Topbar setYear={setYear} />
+			<Map year={year} width='800' height='400' center={DEFAULT_CENTER} zoom={12}>
 				{({ TileLayer, Marker, Popup }) => (
 					<TileLayer
 						url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
