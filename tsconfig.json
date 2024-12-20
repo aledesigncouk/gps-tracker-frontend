@@ -9,7 +9,7 @@
 				"src/styles/components/*"
 			],
 			"@context/*": ["src/context/*"],
-			"@mocks/*": ["src/mocks/*"]
+			"@mocks/*": ["test/mocks/*"]
 		},
 		"target": "es5",
 		"lib": ["dom", "dom.iterable", "esnext"],

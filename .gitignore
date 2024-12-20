@@ -8,6 +8,7 @@
 # testing
 /coverage
 /notes
+/test
 
 # next.js
 /.next/
