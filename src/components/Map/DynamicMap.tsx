@@ -1,72 +1,77 @@
-import { useEffect, useState } from 'react'
-import Leaflet from 'leaflet'
-import * as ReactLeaflet from 'react-leaflet'
-import { Polyline } from 'react-leaflet'
-import { getTrackByYear } from 'src/utils'
+import { useEffect, useState } from "react";
+import Leaflet from "leaflet";
+import * as ReactLeaflet from "react-leaflet";
+import { Polyline } from "react-leaflet";
+import { getTrackByYear } from "src/utils";
 
-import 'leaflet/dist/leaflet.css'
-import styles from '@styles/Map.module.scss'
+import "leaflet/dist/leaflet.css";
+import styles from "@styles/Map.module.scss";
 
-const { MapContainer } = ReactLeaflet
+const { MapContainer } = ReactLeaflet;
 
-const red = { color: 'red' }
+const red = { color: "red" };
 
 type MapProps = {
-	children: (React: typeof ReactLeaflet, L: typeof Leaflet) => JSX.Element
-	className?: string
-	width?: string
-	height?: string
-	year?: number
-}
-
-type Track = {
-	geometry: {
-		coordinates: [number, number][];
-	};
+  children: (React: typeof ReactLeaflet, L: typeof Leaflet) => JSX.Element;
+  className?: string;
+  width?: string;
+  height?: string;
+  year?: number;
 };
 
-const Map: React.FC<MapProps> = ({ children, className, width, height, year, ...rest }) => {
-	let mapClassName = styles.map
+type Track = {
+  geometry: {
+    coordinates: [number, number][];
+  };
+};
 
-	if (className) {
-		mapClassName = `${mapClassName} ${className}`
-	}
+const Map: React.FC<MapProps> = ({
+  children,
+  className,
+  width,
+  height,
+  year,
+  ...rest
+}) => {
+  let mapClassName = styles.map;
 
-	const [track, setTrack] = useState<Track | null>(null);
+  if (className) {
+    mapClassName = `${mapClassName} ${className}`;
+  }
 
-	useEffect(() => {
-		const fetchData = async () => {
-			if (year) {
-				const result = await getTrackByYear(year);
-				setTrack(result);
-			}
-		};
+  const [track, setTrack] = useState<Track | null>(null);
 
-		fetchData();
+  useEffect(() => {
+    const fetchData = async () => {
+      if (year) {
+        const result = await getTrackByYear(year);
+        setTrack(result);
+      }
+    };
 
-	}, [year])
+    fetchData();
+  }, [year]);
 
-	useEffect(() => {
-		; (async function init() {
-			delete Leaflet.Icon.Default.prototype._getIconUrl
-			Leaflet.Icon.Default.mergeOptions({
-				iconRetinaUrl: 'leaflet/images/marker-icon-2x.png',
-				iconUrl: 'leaflet/images/marker-icon.png',
-				shadowUrl: 'leaflet/images/marker-shadow.png'
-			})
-		})()
-	}, [])
+  useEffect(() => {
+    (async function init() {
+      delete Leaflet.Icon.Default.prototype._getIconUrl;
+      Leaflet.Icon.Default.mergeOptions({
+        iconRetinaUrl: "leaflet/images/marker-icon-2x.png",
+        iconUrl: "leaflet/images/marker-icon.png",
+        shadowUrl: "leaflet/images/marker-shadow.png",
+      });
+    })();
+  }, []);
 
-	return (
-		<MapContainer className={mapClassName} {...rest}>
-			{children(ReactLeaflet, Leaflet)}
+  return (
+    <MapContainer className={mapClassName} {...rest}>
+      {children(ReactLeaflet, Leaflet)}
 
-			{track && <Polyline
-				positions={track?.geometry?.coordinates}
-				pathOptions={red}
-			/>}
-		</MapContainer>
-	)
-}
+      {track && (
+        <Polyline positions={track?.geometry?.coordinates} pathOptions={red} />
+      )}
+    </MapContainer>
+  );
+};
 
-export default Map
+export default Map;

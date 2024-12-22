@@ -6,7 +6,7 @@ interface YearSelectorProps {
 }
 
 const YearSelector: React.FC<YearSelectorProps> = ({ onSelect }) => {
-  const [selected, setSelected] = useState<string>('select');
+  const [selected, setSelected] = useState<string>("select");
   const [years, setYears] = useState<string[]>([]);
 
   // Fetch years on component mount
@@ -30,22 +30,23 @@ const YearSelector: React.FC<YearSelectorProps> = ({ onSelect }) => {
     onSelect(value);
   };
 
-
-  return (<div>
-    <label htmlFor="dropdown">Choose an option:</label>
-    <select
-      id="dropdown"
-      value={selected}
-      onChange={handleChange}
-      style={{ marginLeft: '10px', padding: '5px' }}
-    >
-      {years.map((option, index) => (
-        <option key={index} value={option}>
-          {option}
-        </option>
-      ))}
-    </select>
-  </div>);
+  return (
+    <div>
+      <label htmlFor="dropdown">Choose an option:</label>
+      <select
+        id="dropdown"
+        value={selected}
+        onChange={handleChange}
+        style={{ marginLeft: "10px", padding: "5px" }}
+      >
+        {years.map((option, index) => (
+          <option key={index} value={option}>
+            {option}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
 };
 
 export default YearSelector;

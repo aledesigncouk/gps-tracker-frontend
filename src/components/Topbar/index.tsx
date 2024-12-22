@@ -1,25 +1,24 @@
-import Button from 'react-bootstrap/Button'
-import YearSelector from '@components/YearSelector'
-import SelectorDataRange from '@components/SelectorDataRange'
-import { useState } from 'react'
-import styles from '@styles/Topbar.module.scss'
-import SelectedTrack from '@components/SelectedTrack'
+import Button from "react-bootstrap/Button";
+import YearSelector from "@components/YearSelector";
+import SelectorDataRange from "@components/SelectorDataRange";
+import { useState } from "react";
+import styles from "@styles/Topbar.module.scss";
+import SelectedTrack from "@components/SelectedTrack";
 
 const Topbar = ({ setYear }): JSX.Element => {
-	const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState("");
 
-	const handleClick = () => {
-		setYear(inputValue);
-	};
+  const handleClick = () => {
+    setYear(inputValue);
+  };
 
-	return (
-		<>
+  return (
+    <>
+      <div className={styles.topbar}>
+        <YearSelector onSelect={setYear} />
+        {/* <SelectedTrack year={inputValue} /> */}
 
-			<div className={styles.topbar}>
-				<YearSelector onSelect={setYear} />
-				{/* <SelectedTrack year={inputValue} /> */}
-
-				{/* <Button variant='primary'>fetch</Button> 
+        {/* <Button variant='primary'>fetch</Button> 
 				<div>
 					From
 					<SelectorDataRange />
@@ -29,7 +28,7 @@ const Topbar = ({ setYear }): JSX.Element => {
 					<SelectorDataRange />
 				</div> */}
 
-				{/* <input
+        {/* <input
 					type="text"
 					value={inputValue}
 					onChange={(e) => setInputValue(e.target.value)}
@@ -37,10 +36,9 @@ const Topbar = ({ setYear }): JSX.Element => {
 				/>
 
 				<Button variant='primary' onClick={handleClick}>Set track</Button> */}
-			</div>
+      </div>
+    </>
+  );
+};
 
-		</>
-	)
-}
-
-export default Topbar
+export default Topbar;

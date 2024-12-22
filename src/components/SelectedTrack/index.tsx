@@ -1,5 +1,5 @@
 const SelectedTrack = ({ year }) => {
-  return <>Selected track: {year}</>
+  return <>Selected track: {year}</>;
 };
 
 export default SelectedTrack;
