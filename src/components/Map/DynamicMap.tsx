@@ -11,29 +11,43 @@ const { MapContainer } = ReactLeaflet
 
 const red = { color: 'red' }
 
-const Map = ({ children, className, width, height, year, ...rest }) => {
+type MapProps = {
+	children: (React: typeof ReactLeaflet, L: typeof Leaflet) => JSX.Element
+	className?: string
+	width?: string
+	height?: string
+	year?: number
+}
+
+type Track = {
+	geometry: {
+		coordinates: [number, number][];
+	};
+};
+
+const Map: React.FC<MapProps> = ({ children, className, width, height, year, ...rest }) => {
 	let mapClassName = styles.map
 
 	if (className) {
 		mapClassName = `${mapClassName} ${className}`
 	}
 
-	const [track, setTrack] = useState(null);
-	
-	  useEffect(() => {
-		const fetchData = async () => {
-		  if (year) {
-			const result = await getTrackByYear(year);
-			setTrack(result);
-		  }
-		};
-	
-		fetchData();
-	
-	  }, [year])
+	const [track, setTrack] = useState<Track | null>(null);
 
 	useEffect(() => {
-		;(async function init() {
+		const fetchData = async () => {
+			if (year) {
+				const result = await getTrackByYear(year);
+				setTrack(result);
+			}
+		};
+
+		fetchData();
+
+	}, [year])
+
+	useEffect(() => {
+		; (async function init() {
 			delete Leaflet.Icon.Default.prototype._getIconUrl
 			Leaflet.Icon.Default.mergeOptions({
 				iconRetinaUrl: 'leaflet/images/marker-icon-2x.png',

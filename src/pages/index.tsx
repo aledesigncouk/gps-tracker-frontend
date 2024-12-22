@@ -13,7 +13,7 @@ export default function Home() {
 	return (
 		<main className={styles.home}>
 			<Topbar setYear={setYear} />
-			<Map year={year} width='800' height='400' center={DEFAULT_CENTER} zoom={5}>
+			<Map year={year} width={'800'} height={'400'} center={DEFAULT_CENTER} zoom={5}>
 				{({ TileLayer }) => (
 					<TileLayer
 						url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
