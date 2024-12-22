@@ -9,7 +9,7 @@
     "build": "next build",
     "export": "next build && next export",
     "start": "next start",
-    "lint": "npx eslint . --ext .js,.jsx,.ts,.tsx",
+    "lint": "npx eslint . ",
     "format": "npx prettier --write . --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
