@@ -32,13 +32,14 @@ const YearSelector: React.FC<YearSelectorProps> = ({ onSelect }) => {
 
   return (
     <div>
-      <label htmlFor="dropdown">Choose an option:</label>
+      <label htmlFor="dropdown">Choose a year:</label>
       <select
         id="dropdown"
         value={selected}
         onChange={handleChange}
         style={{ marginLeft: "10px", padding: "5px" }}
       >
+         <option value="empty">Years</option>
         {years.map((option, index) => (
           <option key={index} value={option}>
             {option}
