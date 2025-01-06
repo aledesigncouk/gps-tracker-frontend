@@ -1,12 +1,3 @@
-export const getTrackByYear = async (start) => {
-  const response = await fetch(
-    `/api/TrackByYear?start=${encodeURIComponent(start)}`,
-  );
-
-  const result = await response.json();
-  return result;
-};
-
 export const getTrackByRange = async (start, end) => {
   const response = await fetch(
     `/api/TrackByRange?start=${encodeURIComponent(
@@ -24,3 +15,7 @@ export const getYears = async () => {
   const result = await response.json();
   return result;
 };
+
+export const setRangeByYear = () => {
+
+}

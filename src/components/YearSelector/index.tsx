@@ -9,20 +9,19 @@ const YearSelector: React.FC<YearSelectorProps> = ({ onSelect }) => {
   const [selected, setSelected] = useState<string>("select");
   const [years, setYears] = useState<string[]>([]);
 
-  // Fetch years on component mount
   useEffect(() => {
     const fetchYears = async () => {
       try {
-        const result = await getYears(); // Wait for the Promise to resolve
-        setYears(Array.isArray(result) ? result : []); // Ensure result is an array
+        const result = await getYears(); 
+        setYears(Array.isArray(result) ? result : []); 
       } catch (error) {
-        console.error("Failed to fetch years:", error); // Handle errors gracefully
-        setYears([]); // Fallback to an empty array
+        console.error("Failed to fetch years:", error); 
+        setYears([]);
       }
     };
 
     fetchYears();
-  }, []); // Empty dependency array ensures this runs only once
+  }, []); 
 
   const handleChange = (event) => {
     const value = event.target.value;
