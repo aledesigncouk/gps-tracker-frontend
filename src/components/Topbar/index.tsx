@@ -1,26 +1,24 @@
+import { useState } from "react";
+import { useStore } from "@store/ContextStore";
 import Button from "react-bootstrap/Button";
 import YearSelector from "@components/YearSelector";
 import ControlSwitch from "@components/ControlSwitch";
-
-import { useState } from "react";
-import styles from "@styles/Topbar.module.scss";
 import DateRangeSelector from "@components/SelectorDataRange";
-import "react-datepicker/dist/react-datepicker.css";
 
-interface TopbarProps {
-  // startDate: Date;
-  // endDate: Date;
-  // setStartDate: (date: Date) => void;
-  // setEndDate: (date: Date) => void;
-}
+import styles from "@styles/Topbar.module.scss";
+import "react-datepicker/dist/react-datepicker.css";
 
 const Topbar = (): JSX.Element => {
   const [toggleState, setToggleState] = useState(false); // true => Years, false => range
-  const [year, setYear] = useState("");
+  const { startDate, endDate, selectedYear} = useStore();
 
   // const handleClick = () => {
   //   setDataRange(inputValue);
   // };
+
+  // console.log('st >', startDate)
+  // console.log('nd >', endDate)
+  // console.log('yr >', selectedYear)
 
   const handleInputChange = (toggleState) => {
     setToggleState(!toggleState);
@@ -30,9 +28,8 @@ const Topbar = (): JSX.Element => {
     <>
       <div className={styles.topbar}>
         <ControlSwitch onToggle={setToggleState} />
-
         {toggleState ? (
-          <YearSelector onSelect={setYear} />
+          <YearSelector />
         ) : (
           <DateRangeSelector />
         )}

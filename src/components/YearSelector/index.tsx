@@ -1,13 +1,14 @@
+import { useStore } from "@store/ContextStore";
 import { useState, useEffect } from "react";
 import { getYears } from "src/utils";
 
 interface YearSelectorProps {
-  onSelect: (value: string) => void;
+  // onSelect: (value: string) => void;
 }
 
-const YearSelector: React.FC<YearSelectorProps> = ({ onSelect }) => {
-  const [selected, setSelected] = useState<string>("select");
-  const [years, setYears] = useState<string[]>([]);
+const YearSelector: React.FC<YearSelectorProps> = () => {
+  const {selectedYear, setSelectedYear} = useStore(); // selected year
+  const [years, setYears] = useState<string[]>([]); // list of available years
 
   useEffect(() => {
     const fetchYears = async () => {
@@ -25,8 +26,7 @@ const YearSelector: React.FC<YearSelectorProps> = ({ onSelect }) => {
 
   const handleChange = (event) => {
     const value = event.target.value;
-    setSelected(value);
-    onSelect(value);
+    setSelectedYear(value);
   };
 
   return (
@@ -34,7 +34,7 @@ const YearSelector: React.FC<YearSelectorProps> = ({ onSelect }) => {
       <label htmlFor="dropdown">Choose a year:</label>
       <select
         id="dropdown"
-        value={selected}
+        value={selectedYear}
         onChange={handleChange}
         style={{ marginLeft: "10px", padding: "5px" }}
       >

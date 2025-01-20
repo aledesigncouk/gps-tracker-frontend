@@ -8,7 +8,7 @@
         "src/styles/pages/*",
         "src/styles/components/*"
       ],
-      "@context/*": ["src/context/*"],
+      "@store/*": ["src/store/*"],
       "@mocks/*": ["test/mocks/*"]
     },
     "target": "es5",

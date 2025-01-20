@@ -1,39 +1,29 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, use } from "react";
 import DatePicker from "react-datepicker";
-import store from "@store/Store";
+import { useStore } from "@store/ContextStore";
 
 import "react-datepicker/dist/react-datepicker.css";
 import styles from "@styles/DateRangeSelector.module.scss";
 
-interface DateRangeSelectorProps {
-  // startDate: Date;
-  // endDate: Date;
-  // setStartDate: (date: Date) => void;
-  // setEndDate: (date: Date) => void;
-}
-
-const DateRangeSelector = ({
-  // startDate,
-  // endDate,
-  // setStartDate,
-  // setEndDate,
-}) => {
-  const [startDate, setStartDate] = useState<Date>(new Date());
-  const [endDate, setEndDate] = useState<Date>(new Date());
-
-const start = startDate.toString();
+const DateRangeSelector = () => {
+  const { startDate, setStartDate, endDate, setEndDate} = useStore()
 
   return (
     <>
       <DatePicker
         selected={startDate}
         onChange={(date) => setStartDate(date)}
-        selectsMultiple={true}
+        selectsStart
+        startDate={startDate}
+        endDate={endDate}
       />
       <DatePicker
         selected={endDate}
         onChange={(date) => setEndDate(date)}
-        selectsMultiple={true}
+        selectsEnd
+        startDate={startDate}
+        endDate={endDate}
+        minDate={startDate}
       />
     </>
   );
