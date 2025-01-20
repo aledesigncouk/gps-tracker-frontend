@@ -1,36 +1,45 @@
 import Button from "react-bootstrap/Button";
 import YearSelector from "@components/YearSelector";
+import ControlSwitch from "@components/ControlSwitch";
 
 import { useState } from "react";
 import styles from "@styles/Topbar.module.scss";
-
-import DatePicker from "react-datepicker";
+import DateRangeSelector from "@components/SelectorDataRange";
 import "react-datepicker/dist/react-datepicker.css";
 
-const Topbar = ({ setDataRange, setYear }): JSX.Element => {
-  const [inputValue, setInputValue] = useState("");
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
+interface TopbarProps {
+  // startDate: Date;
+  // endDate: Date;
+  // setStartDate: (date: Date) => void;
+  // setEndDate: (date: Date) => void;
+}
 
-  const handleClick = () => {
-    setDataRange(inputValue);
+const Topbar = (): JSX.Element => {
+  const [toggleState, setToggleState] = useState(false); // true => Years, false => range
+  const [year, setYear] = useState("");
+
+  // const handleClick = () => {
+  //   setDataRange(inputValue);
+  // };
+
+  const handleInputChange = (toggleState) => {
+    setToggleState(!toggleState);
   };
 
   return (
     <>
       <div className={styles.topbar}>
-        <YearSelector onSelect={setYear} />
-      
-				<div>
-					From
-					<DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
-				</div>
-				<div>
-					To
-					<DatePicker selected={endDate} onChange={(date) => setEndDate(date)} />
-				</div>
+        <ControlSwitch onToggle={setToggleState} />
 
-				<Button variant='primary' onClick={handleClick}>Show Track</Button>
+        {toggleState ? (
+          <YearSelector onSelect={setYear} />
+        ) : (
+          <DateRangeSelector />
+        )}
+
+        <Button variant="primary" onClick={() => {}}>
+          Show Track
+        </Button>
       </div>
     </>
   );

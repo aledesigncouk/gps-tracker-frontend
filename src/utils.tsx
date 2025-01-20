@@ -16,6 +16,9 @@ export const getYears = async () => {
   return result;
 };
 
-export const setRangeByYear = () => {
+export const setRangeByYear = (year: string): {startDate: string, endDate: string} => {
+  const startDate = `${year}-01-01`;
+  const endDate = `${year}-12-31`;
 
+  return { startDate, endDate };
 }

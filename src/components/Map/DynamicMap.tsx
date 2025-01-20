@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import Leaflet from "leaflet";
 import * as ReactLeaflet from "react-leaflet";
 import { Polyline } from "react-leaflet";
-import { getTrackByYear } from "src/utils";
+
+import { getTrackByRange, setRangeByYear  } from "src/utils";
 
 import "leaflet/dist/leaflet.css";
 import styles from "@styles/Map.module.scss";
@@ -16,7 +17,7 @@ type MapProps = {
   className?: string;
   width?: string;
   height?: string;
-  year?: number;
+  year?: string;
 };
 
 type Track = {
@@ -44,7 +45,8 @@ const Map: React.FC<MapProps> = ({
   useEffect(() => {
     const fetchData = async () => {
       if (year) {
-        const result = await getTrackByYear(year);
+        const { startDate: start, endDate: end } = setRangeByYear(year);
+        const result = await getTrackByRange(start, end);
         setTrack(result);
       }
     };
