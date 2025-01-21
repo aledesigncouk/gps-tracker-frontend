@@ -16,10 +16,6 @@ const Topbar = (): JSX.Element => {
   //   setDataRange(inputValue);
   // };
 
-  // console.log('st >', startDate)
-  // console.log('nd >', endDate)
-  // console.log('yr >', selectedYear)
-
   const handleInputChange = (toggleState) => {
     setToggleState(!toggleState);
   };

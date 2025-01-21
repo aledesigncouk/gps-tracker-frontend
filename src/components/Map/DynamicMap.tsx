@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
+import { useStore } from "@store/ContextStore";
 import Leaflet from "leaflet";
 import * as ReactLeaflet from "react-leaflet";
 import { Polyline } from "react-leaflet";
-
 import { getTrackByRange, setRangeByYear  } from "src/utils";
 
 import "leaflet/dist/leaflet.css";
@@ -17,7 +17,6 @@ type MapProps = {
   className?: string;
   width?: string;
   height?: string;
-  year?: string;
 };
 
 type Track = {
@@ -31,7 +30,6 @@ const Map: React.FC<MapProps> = ({
   className,
   width,
   height,
-  year,
   ...rest
 }) => {
   let mapClassName = styles.map;
@@ -41,18 +39,20 @@ const Map: React.FC<MapProps> = ({
   }
 
   const [track, setTrack] = useState<Track | null>(null);
+  const { selectedYear } = useStore();
 
   useEffect(() => {
     const fetchData = async () => {
-      if (year) {
-        const { startDate: start, endDate: end } = setRangeByYear(year);
+      if (selectedYear) {
+        const { startDate: start, endDate: end } = setRangeByYear(selectedYear);
+        console.log('>>', start, end)
         const result = await getTrackByRange(start, end);
         setTrack(result);
       }
     };
 
     fetchData();
-  }, [year]);
+  }, [selectedYear]);
 
   useEffect(() => {
     (async function init() {

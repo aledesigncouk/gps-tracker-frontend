@@ -3,17 +3,16 @@ import Map from "@components/Map";
 import Topbar from "@components/Topbar";
 
 import styles from "@styles/Home.module.scss";
+import { useStore } from "@store/ContextStore";
 
 const DEFAULT_CENTER = [52.6680064, -2.490368];
 
 export default function Home() {
-  const [year, setYear] = useState("");
-
+  
   return (
     <main className={styles.home}>
-      <Topbar setYear={setYear} />
+      <Topbar />
       <Map
-        year={year}
         width={"800"}
         height={"400"}
         center={DEFAULT_CENTER}
