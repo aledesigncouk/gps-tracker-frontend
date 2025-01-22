@@ -16,6 +16,7 @@ const DateRangeSelector = () => {
         selectsStart
         startDate={startDate}
         endDate={endDate}
+        dateFormat={'dd / MM / yyyy'}
       />
       <DatePicker
         selected={endDate}
@@ -24,6 +25,7 @@ const DateRangeSelector = () => {
         startDate={startDate}
         endDate={endDate}
         minDate={startDate}
+        dateFormat={'dd / MM / yyyy'}
       />
     </>
   );
