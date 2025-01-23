@@ -11,7 +11,7 @@ export default function Home() {
   
   return (
     <main className={styles.home}>
-      <h1>The backend is under maintenance, I will try to fix it as soon as possible!</h1>
+      <center><h1>The backend is under maintenance, I will try to fix it as soon as possible!</h1></center>
       {/* <Topbar />
       <Map
         width={"800"}
