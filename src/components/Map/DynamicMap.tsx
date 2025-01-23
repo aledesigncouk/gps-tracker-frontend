@@ -3,7 +3,7 @@ import { useStore } from "@store/ContextStore";
 import Leaflet from "leaflet";
 import * as ReactLeaflet from "react-leaflet";
 import { Polyline } from "react-leaflet";
-import { getTrackByRange, setRangeByYear  } from "src/utils";
+import { getTrackByRange, formatDate, setRangeByYear } from "src/utils";
 
 import "leaflet/dist/leaflet.css";
 import styles from "@styles/Map.module.scss";
@@ -39,18 +39,29 @@ const Map: React.FC<MapProps> = ({
   }
 
   const [track, setTrack] = useState<Track | null>(null);
-  const { selectedYear } = useStore();
+  const { startDate, endDate, selectedYear } = useStore();
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     if (startDate && endDate) {
+  //       const start = formatDate(startDate);
+  //       const end = formatDate(endDate);
+  //       const result = await getTrackByRange(startDate, endDate);
+  //       setTrack(result);
+  //     }
+  //   };
+
+  //   fetchData();
+  // }, [startDate, endDate]);
 
   useEffect(() => {
     const fetchData = async () => {
       if (selectedYear) {
         const { startDate: start, endDate: end } = setRangeByYear(selectedYear);
-        console.log('>>', start, end)
         const result = await getTrackByRange(start, end);
         setTrack(result);
       }
     };
-
     fetchData();
   }, [selectedYear]);
 

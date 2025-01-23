@@ -1,9 +1,9 @@
 const useFetchYears = async (req, res) => {
-  const { API_URL, API_URL_YEARS, API_KEY } = process.env;
+  const { API_URL_YEARS, API_KEY } = process.env;
 
   try {
     const response = await fetch(`${API_URL_YEARS}`, {
-      // to be changed
+      
       method: "GET",
       headers: {
         "Content-Type": "application/json",

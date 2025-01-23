@@ -9,16 +9,15 @@ import styles from "@styles/Topbar.module.scss";
 import "react-datepicker/dist/react-datepicker.css";
 
 const Topbar = (): JSX.Element => {
-  const [toggleState, setToggleState] = useState(false); // true => Years, false => range
-  const { startDate, endDate, selectedYear} = useStore();
-
+  const [toggleState, setToggleState] = useState(true); // true => Years, false => range
+  
   // const handleClick = () => {
   //   setDataRange(inputValue);
   // };
 
-  const handleInputChange = (toggleState) => {
-    setToggleState(!toggleState);
-  };
+  // const handleInputChange = (toggleState) => {
+  //   setToggleState(!toggleState);
+  // };
 
   return (
     <>
