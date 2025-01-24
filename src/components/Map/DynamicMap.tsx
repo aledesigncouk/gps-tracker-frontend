@@ -3,7 +3,12 @@ import { useStore } from "@store/ContextStore";
 import Leaflet from "leaflet";
 import * as ReactLeaflet from "react-leaflet";
 import { Polyline } from "react-leaflet";
-import { getTrackByRange, formatDate, setRangeByYear } from "src/utils";
+import {
+  getTrackByRange,
+  formatDate,
+  setRangeByYear,
+  validateData,
+} from "src/utils";
 
 import "leaflet/dist/leaflet.css";
 import styles from "@styles/Map.module.scss";
@@ -39,27 +44,52 @@ const Map: React.FC<MapProps> = ({
   }
 
   const [track, setTrack] = useState<Track | null>(null);
-  const { startDate, endDate, selectedYear } = useStore();
+  const { startDate, endDate, selectedYear, controlSwitch } = useStore();
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     if (startDate && endDate) {
-  //       const start = formatDate(startDate);
-  //       const end = formatDate(endDate);
-  //       const result = await getTrackByRange(startDate, endDate);
-  //       setTrack(result);
-  //     }
-  //   };
+  useEffect(() => {
+    const fetchData = async () => {
+      if (startDate && endDate) {
+        const start = formatDate(startDate);
+        const end = formatDate(endDate);
+        try {
+          const result = await getTrackByRange(start, end);
 
-  //   fetchData();
-  // }, [startDate, endDate]);
+          if (validateData(result)) {
+            setTrack(result);
+          } else {
+            throw new Error("Invalid data structure");
+          }
+        } catch (error) {
+          console.error(error.message);
+
+          setTrack(null);
+          alert("Unable to fetch valid track data. Please try again.");
+        }
+      }
+    };
+
+    fetchData();
+  }, [startDate, endDate]);
 
   useEffect(() => {
     const fetchData = async () => {
       if (selectedYear) {
-        const { startDate: start, endDate: end } = setRangeByYear(selectedYear);
-        const result = await getTrackByRange(start, end);
-        setTrack(result);
+        try {
+          const { startDate: start, endDate: end } =
+            setRangeByYear(selectedYear);
+          const result = await getTrackByRange(start, end);
+
+          if (validateData(result)) {
+            setTrack(result);
+          } else {
+            throw new Error("Invalid data structure");
+          }
+        } catch (error) {
+          console.error(error.message);
+
+          setTrack(null);
+          alert("Unable to fetch valid track data. Please try again.");
+        }
       }
     };
     fetchData();
