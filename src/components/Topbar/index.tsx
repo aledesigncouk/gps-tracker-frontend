@@ -22,12 +22,12 @@ const Topbar = (): JSX.Element => {
   return (
     <>
       <div className={styles.topbar}>
-        <ControlSwitch onToggle={setToggleState} />
-        {toggleState ? <YearSelector /> : <DateRangeSelector />}
-
-        <Button variant="primary" onClick={() => {}}>
+        {/* <ControlSwitch onToggle={setToggleState} />
+        {toggleState ? <YearSelector /> : <DateRangeSelector />} */}
+        <YearSelector />
+        {/* <Button variant="primary" onClick={() => {}}>
           Show Track
-        </Button>
+        </Button> */}
       </div>
     </>
   );

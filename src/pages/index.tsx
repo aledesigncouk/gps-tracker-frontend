@@ -11,8 +11,7 @@ export default function Home() {
   
   return (
     <main className={styles.home}>
-      <center><h1>The backend is under maintenance, I will try to fix it as soon as possible!</h1></center>
-      {/* <Topbar />
+      <Topbar />
       <Map
         width={"800"}
         height={"400"}
@@ -25,7 +24,7 @@ export default function Home() {
             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           />
         )}
-      </Map> */}
+      </Map>
     </main>
   );
 }
