@@ -1,6 +1,7 @@
 import React, { useState, useContext, use } from "react";
 import DatePicker from "react-datepicker";
 import { useStore } from "@store/ContextStore";
+import { Button } from "react-bootstrap";
 
 import "react-datepicker/dist/react-datepicker.css";
 import styles from "@styles/DateRangeSelector.module.scss";
@@ -27,6 +28,9 @@ const DateRangeSelector = () => {
         minDate={startDate}
         dateFormat={"dd / MM / yyyy"}
       />
+      <Button variant="primary" onClick={() => {}}>
+        Show Track
+      </Button>
     </>
   );
 };
