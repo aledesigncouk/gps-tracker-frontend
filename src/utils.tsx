@@ -1,19 +1,32 @@
-export const getTrackByRange = async (start, end) => {
+type Coordinate = [number, number];
 
-  const response = await fetch(
-    `/api/TrackByRange?start=${
-      start}&end=${end}`
-  );
+interface Geometry {
+  type: "LineString";
+  coordinates: Coordinate[];
+}
 
-  const result = await response.json();
-  return result;
+interface Properties {
+  year: number;
+}
+
+interface Track {
+  type: "Feature";
+  properties: Properties;
+  geometry: Geometry;
+}
+
+export const getTrackByRange = async (start: string, end: string): Promise<Track> => {
+  const response = await fetch(`/api/TrackByRange?start=${start}&end=${end}`);
+
+  const data = await response.json();
+  return data;
 };
 
-export const getYears = async () => {
+export const getYears = async (): Promise<string[]> => {
   const response = await fetch("/api/GetYears");
 
-  const result = await response.json();
-  return result;
+  const data = await response.json();
+  return data;
 };
 
 // format the dates to be MySQL friendly
@@ -32,4 +45,26 @@ export const setRangeByYear = (
   const endDate = `${year}-12-31`;
 
   return { startDate, endDate };
+};
+
+export const validateData = (data: Track): boolean => {
+  if (
+    data &&
+    data.type === "Feature" &&
+    data.properties &&
+    typeof data.properties.year === "number" &&
+    data.geometry &&
+    data.geometry.type === "LineString" &&
+    Array.isArray(data.geometry.coordinates) &&
+    data.geometry.coordinates.every(
+      (coord) =>
+        Array.isArray(coord) &&
+        coord.length === 2 &&
+        coord.every((val) => typeof val === "number")
+    )
+  ) {
+    return true;
+  }
+
+  return false;
 };
