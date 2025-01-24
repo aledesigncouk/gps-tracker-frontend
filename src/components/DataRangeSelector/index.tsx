@@ -6,7 +6,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import styles from "@styles/DateRangeSelector.module.scss";
 
 const DateRangeSelector = () => {
-  const { startDate, setStartDate, endDate, setEndDate} = useStore()
+  const { startDate, setStartDate, endDate, setEndDate } = useStore();
 
   return (
     <>
@@ -16,8 +16,7 @@ const DateRangeSelector = () => {
         selectsStart
         startDate={startDate}
         endDate={endDate}
-        dateFormat={'dd / MM / yyyy'}
-        
+        dateFormat={"dd / MM / yyyy"}
       />
       <DatePicker
         selected={endDate}
@@ -26,7 +25,7 @@ const DateRangeSelector = () => {
         startDate={startDate}
         endDate={endDate}
         minDate={startDate}
-        dateFormat={'dd / MM / yyyy'}
+        dateFormat={"dd / MM / yyyy"}
       />
     </>
   );

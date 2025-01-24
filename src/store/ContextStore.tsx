@@ -14,7 +14,7 @@ const Store = createContext<StoreType | undefined>(undefined);
 export const ContextStore = ({ children }: { children: ReactNode }) => {
   const [startDate, setStartDate] = useState<Date>(new Date()); // set a default range
   const [endDate, setEndDate] = useState<Date>(new Date());
-  const [selectedYear, setSelectedYear] = useState<string>('');
+  const [selectedYear, setSelectedYear] = useState<string>("");
 
   return (
     <Store.Provider

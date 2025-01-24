@@ -10,7 +10,7 @@ import "react-datepicker/dist/react-datepicker.css";
 
 const Topbar = (): JSX.Element => {
   const [toggleState, setToggleState] = useState(true); // true => Years, false => range
-  
+
   // const handleClick = () => {
   //   setDataRange(inputValue);
   // };
@@ -23,11 +23,7 @@ const Topbar = (): JSX.Element => {
     <>
       <div className={styles.topbar}>
         <ControlSwitch onToggle={setToggleState} />
-        {toggleState ? (
-          <YearSelector />
-        ) : (
-          <DateRangeSelector />
-        )}
+        {toggleState ? <YearSelector /> : <DateRangeSelector />}
 
         <Button variant="primary" onClick={() => {}}>
           Show Track
