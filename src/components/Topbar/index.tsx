@@ -3,7 +3,7 @@ import { useStore } from "@store/ContextStore";
 import Button from "react-bootstrap/Button";
 import YearSelector from "@components/YearSelector";
 import ControlSwitch from "@components/ControlSwitch";
-import DateRangeSelector from "@components/SelectorDataRange";
+import DateRangeSelector from "@components/DataRangeSelector";
 
 import styles from "@styles/Topbar.module.scss";
 import "react-datepicker/dist/react-datepicker.css";

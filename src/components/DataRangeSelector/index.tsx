@@ -12,22 +12,21 @@ const DateRangeSelector = () => {
     <>
       <DatePicker
         selected={startDate}
-        onChange={(date) => setStartDate(date)}
+        onChange={(date: Date) => setStartDate(date)}
         selectsStart
         startDate={startDate}
         endDate={endDate}
         dateFormat={'dd / MM / yyyy'}
-        selectsMultiple={true}
+        
       />
       <DatePicker
         selected={endDate}
-        onChange={(date) => setEndDate(date)}
+        onChange={(date: Date) => setEndDate(date)}
         selectsEnd
         startDate={startDate}
         endDate={endDate}
         minDate={startDate}
         dateFormat={'dd / MM / yyyy'}
-        selectsMultiple={true}
       />
     </>
   );
