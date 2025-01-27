@@ -5,6 +5,7 @@ import {
   setRangeByYear,
   validateData,
 } from "@utils/utils";
+import { ControlSwitchEnum } from "@enums/enums";
 
 type Track = {
   geometry: {
@@ -24,13 +25,13 @@ export const useFetchTrack = (
   useEffect(() => {
     const fetchData = async () => {
       try {
-        if (controlSwitch === "range" && startDate && endDate) {
+        if (controlSwitch === ControlSwitchEnum.RANGE && startDate && endDate) {
           const start = formatDate(startDate);
           const end = formatDate(endDate);
           const result = await getTrackByRange(start, end);
           if (!validateData(result)) throw new Error("Invalid data structure");
           setTrack(result);
-        } else if (controlSwitch === "year" && selectedYear) {
+        } else if (controlSwitch === ControlSwitchEnum.YEAR && selectedYear) {
           const { startDate: start, endDate: end } =
             setRangeByYear(selectedYear);
           const result = await getTrackByRange(start, end);
