@@ -1,6 +1,6 @@
 import { useStore } from "@store/ContextStore";
 import { useState, useEffect } from "react";
-import { getYears } from "src/utils";
+import { getYears } from "@utils/utils";
 
 interface YearSelectorProps {
   // onSelect: (value: string) => void;
