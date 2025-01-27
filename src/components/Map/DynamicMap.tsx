@@ -26,12 +26,6 @@ type MapProps = {
   height?: string;
 };
 
-// type Track = {
-//   geometry: {
-//     coordinates: [number, number][];
-//   };
-// };
-
 const Map: React.FC<MapProps> = ({
   children,
   className,
@@ -45,7 +39,6 @@ const Map: React.FC<MapProps> = ({
     mapClassName = `${mapClassName} ${className}`;
   }
 
-  // const [track, setTrack] = useState<Track | null>(null);
   const { startDate, endDate, selectedYear, controlSwitch } = useStore();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
