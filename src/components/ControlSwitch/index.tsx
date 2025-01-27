@@ -1,26 +1,33 @@
 import React, { useState } from "react";
 import styles from "@styles/components/ControlSwitch.module.scss";
 import Switch from "react-switch";
+import { ControlSwitchEnum } from "@enums/enums";
+import { useStore } from "@store/ContextStore";
 
 interface ControlSwitchProps {
-  onToggle: (isChecked: boolean) => void;
+  onToggle: (isSet: ControlSwitchEnum) => void;
 }
 
 const ControlSwitch: React.FC<ControlSwitchProps> = ({ onToggle }) => {
-  const [isChecked, setIsChecked] = useState(false);
+  const { controlSwitch, setControlSwitch } = useStore();
 
   const handleToggle = () => {
-    setIsChecked((prev) => {
-      const checkedState = !prev;
-      onToggle(checkedState);
-      return checkedState;
-    });
+    const newSwitchValue =
+      controlSwitch === ControlSwitchEnum.RANGE
+        ? ControlSwitchEnum.YEAR
+        : ControlSwitchEnum.RANGE;
+
+    setControlSwitch(newSwitchValue);
+    onToggle(newSwitchValue);
   };
 
   return (
     <div className={styles.container}>
       <label>
-        <Switch onChange={handleToggle} checked={isChecked} />
+        <Switch
+          onChange={handleToggle}
+          checked={controlSwitch === ControlSwitchEnum.YEAR}
+        />
       </label>
     </div>
   );
