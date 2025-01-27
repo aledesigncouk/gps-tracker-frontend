@@ -1,22 +1,19 @@
-import React, { useState, useContext, use, useEffect } from "react";
+import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import { useStore } from "@store/ContextStore";
 import { Button } from "react-bootstrap";
 import Modal from "@components/Modal";
 
-import "react-datepicker/dist/react-datepicker.css";
-import styles from "@styles/DateRangeSelector.module.scss";
+// import "react-datepicker/dist/react-datepicker.css";
 
 const DateRangeSelector = () => {
   const { startDate, setStartDate, endDate, setEndDate } = useStore();
-  const [start, setStart] = useState<Date | null>();
-  const [end, setEnd] = useState<Date | null>();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const handleButtonClick = () => {
-    if (start && end) {
-      setStartDate(start);
-      setEndDate(end);
+    if (startDate && endDate) {
+      setStartDate(startDate);
+      setEndDate(endDate);
     } else {
       setIsModalOpen(true);
     }
@@ -26,20 +23,23 @@ const DateRangeSelector = () => {
     <>
       <DatePicker
         selected={startDate}
-        onChange={(date: Date) => setStart(date)}
+        onChange={(date: Date) => setStartDate(date)}
         selectsStart
         startDate={startDate}
         endDate={endDate}
         dateFormat={"dd / MM / yyyy"}
+        withPortal
       />
       <DatePicker
         selected={endDate}
-        onChange={(date: Date) => setEnd(date)}
+        onChange={(date: Date) => setEndDate(date)}
         selectsEnd
         startDate={startDate}
         endDate={endDate}
         minDate={startDate}
         dateFormat={"dd / MM / yyyy"}
+        withPortal
+        
       />
       <Button variant="primary" onClick={handleButtonClick}>
         Show Track

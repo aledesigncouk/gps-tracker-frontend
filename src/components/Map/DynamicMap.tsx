@@ -8,10 +8,12 @@ import {
   formatDate,
   setRangeByYear,
   validateData,
-} from "src/utils";
+} from "@utils/utils";
+import { useFetchTrack } from "@components/Map/hooks";
 
 import "leaflet/dist/leaflet.css";
 import styles from "@styles/Map.module.scss";
+import Modal from "@components/Modal";
 
 const { MapContainer } = ReactLeaflet;
 
@@ -24,11 +26,11 @@ type MapProps = {
   height?: string;
 };
 
-type Track = {
-  geometry: {
-    coordinates: [number, number][];
-  };
-};
+// type Track = {
+//   geometry: {
+//     coordinates: [number, number][];
+//   };
+// };
 
 const Map: React.FC<MapProps> = ({
   children,
@@ -43,58 +45,18 @@ const Map: React.FC<MapProps> = ({
     mapClassName = `${mapClassName} ${className}`;
   }
 
-  const [track, setTrack] = useState<Track | null>(null);
+  // const [track, setTrack] = useState<Track | null>(null);
   const { startDate, endDate, selectedYear, controlSwitch } = useStore();
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      if (startDate && endDate) {
-        const start = formatDate(startDate);
-        const end = formatDate(endDate);
-        try {
-          const result = await getTrackByRange(start, end);
+  const { track, error }= useFetchTrack(
+    controlSwitch,
+    startDate,
+    endDate,
+    selectedYear
+  );
 
-          if (validateData(result)) {
-            setTrack(result);
-          } else {
-            throw new Error("Invalid data structure");
-          }
-        } catch (error) {
-          console.error(error.message);
-
-          setTrack(null);
-          alert("Unable to fetch valid track data. Please try again.");
-        }
-      }
-    };
-
-    fetchData();
-  }, [startDate, endDate]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      if (selectedYear) {
-        try {
-          const { startDate: start, endDate: end } =
-            setRangeByYear(selectedYear);
-          const result = await getTrackByRange(start, end);
-
-          if (validateData(result)) {
-            setTrack(result);
-          } else {
-            throw new Error("Invalid data structure");
-          }
-        } catch (error) {
-          console.error(error.message);
-
-          setTrack(null);
-          alert("Unable to fetch valid track data. Please try again.");
-        }
-      }
-    };
-    fetchData();
-  }, [selectedYear]);
-
+  // map
   useEffect(() => {
     (async function init() {
       delete Leaflet.Icon.Default.prototype._getIconUrl;
@@ -107,13 +69,24 @@ const Map: React.FC<MapProps> = ({
   }, []);
 
   return (
-    <MapContainer className={mapClassName} {...rest}>
-      {children(ReactLeaflet, Leaflet)}
+    <>
+      <MapContainer className={mapClassName} {...rest}>
+        {children(ReactLeaflet, Leaflet)}
 
-      {track && (
-        <Polyline positions={track?.geometry?.coordinates} pathOptions={red} />
-      )}
-    </MapContainer>
+        {track && (
+          <Polyline
+            positions={track?.geometry?.coordinates}
+            pathOptions={red}
+          />
+        )}
+      </MapContainer>
+      {error && <Modal
+        title="Error"
+        content="Unable to fetch valid track data. Please try again."
+        isOpen={isModalOpen}
+        setModal={setIsModalOpen}
+      />}
+    </>
   );
 };
 
