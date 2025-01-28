@@ -3,12 +3,6 @@ import { useStore } from "@store/ContextStore";
 import Leaflet from "leaflet";
 import * as ReactLeaflet from "react-leaflet";
 import { Polyline } from "react-leaflet";
-import {
-  getTrackByRange,
-  formatDate,
-  setRangeByYear,
-  validateData,
-} from "@utils/utils";
 import { useFetchTrack } from "@components/Map/hooks";
 
 import "leaflet/dist/leaflet.css";
@@ -39,14 +33,17 @@ const Map: React.FC<MapProps> = ({
     mapClassName = `${mapClassName} ${className}`;
   }
 
-  const { startDate, endDate, selectedYear, controlSwitch } = useStore();
+  const { startDate, endDate, selectedYear, controlSwitch, runFetchData, setRunFetchData } = useStore();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const { track, error }= useFetchTrack(
     controlSwitch,
     startDate,
     endDate,
-    selectedYear
+    selectedYear,
+    runFetchData,
+    setRunFetchData
+  
   );
 
   // map

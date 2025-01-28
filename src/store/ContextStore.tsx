@@ -9,6 +9,8 @@ interface StoreType {
   setSelectedYear: (year: string) => void;
   controlSwitch: ControlSwitchEnum;
   setControlSwitch: (value: ControlSwitchEnum) => void;
+  runFetchData: boolean;
+  setRunFetchData: (value: boolean) => void;
 }
 
 const Store = createContext<StoreType | undefined>(undefined);
@@ -17,6 +19,7 @@ export const ContextStore = ({ children }: { children: ReactNode }) => {
   const [startDate, setStartDate] = useState<Date>(new Date()); // set a default range
   const [endDate, setEndDate] = useState<Date>(new Date());
   const [selectedYear, setSelectedYear] = useState<string>("");
+  const [runFetchData, setRunFetchData] = useState<boolean>(false);
   const [controlSwitch, setControlSwitch] = useState<ControlSwitchEnum>(
     ControlSwitchEnum.RANGE || ControlSwitchEnum.YEAR);
 
@@ -31,6 +34,8 @@ export const ContextStore = ({ children }: { children: ReactNode }) => {
         setSelectedYear: setSelectedYear,
         controlSwitch: controlSwitch,
         setControlSwitch: setControlSwitch,
+        runFetchData: runFetchData,
+        setRunFetchData: setRunFetchData
       }}
     >
       {children}

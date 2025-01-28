@@ -7,16 +7,18 @@ import Modal from "@components/Modal";
 // import "react-datepicker/dist/react-datepicker.css";
 
 const DateRangeSelector = () => {
-  const { startDate, setStartDate, endDate, setEndDate } = useStore();
+  const {
+    startDate,
+    setStartDate,
+    endDate,
+    setEndDate,
+    runFetchData,
+    setRunFetchData,
+  } = useStore();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
-  const handleButtonClick = () => {
-    if (startDate && endDate) {
-      setStartDate(startDate);
-      setEndDate(endDate);
-    } else {
-      setIsModalOpen(true);
-    }
+  const handleFetch = () => {
+    setRunFetchData(true);
   };
 
   return (
@@ -39,9 +41,8 @@ const DateRangeSelector = () => {
         minDate={startDate}
         dateFormat={"dd / MM / yyyy"}
         withPortal
-        
       />
-      <Button variant="primary" onClick={handleButtonClick}>
+      <Button variant="primary" onClick={handleFetch}>
         Show Track
       </Button>
       <Modal

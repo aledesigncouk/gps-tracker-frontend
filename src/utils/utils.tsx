@@ -15,7 +15,10 @@ interface Track {
   geometry: Geometry;
 }
 
-export const getTrackByRange = async (start: string, end: string): Promise<Track> => {
+export const getTrackByRange = async (
+  start: string,
+  end: string
+): Promise<Track> => {
   const response = await fetch(`/api/TrackByRange?start=${start}&end=${end}`);
 
   const data = await response.json();
@@ -47,7 +50,7 @@ export const setRangeByYear = (
   return { startDate, endDate };
 };
 
-export const validateData = (data: Track): boolean => {
+export const validateTrackData = (data: Track): boolean => {
   if (
     data &&
     data.type === "Feature" &&
@@ -65,6 +68,12 @@ export const validateData = (data: Track): boolean => {
   ) {
     return true;
   }
+  return false;
+};
 
+const validateYearsData = (data: string[]): boolean => {
+  if (Array.isArray(data) && data.every((year) => typeof year === "string")) {
+    return true;
+  }
   return false;
 };

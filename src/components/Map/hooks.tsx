@@ -1,11 +1,7 @@
 import { useState, useEffect } from "react";
-import {
-  formatDate,
-  getTrackByRange,
-  setRangeByYear,
-  validateData,
-} from "@utils/utils";
+import { formatDate, getTrackByRange, setRangeByYear } from "@utils/utils";
 import { ControlSwitchEnum } from "@enums/enums";
+import { validateTrackData } from "@utils/utils";
 
 type Track = {
   geometry: {
@@ -17,35 +13,43 @@ export const useFetchTrack = (
   controlSwitch: string,
   startDate: Date | null,
   endDate: Date | null,
-  selectedYear: string | null
+  selectedYear: string | null,
+  runFetchData: boolean,
+  setRunFetchData: (value: boolean) => void
 ) => {
   const [track, setTrack] = useState<Track | null>(null);
   const [error, setError] = useState<string | null>(null);
 
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        if (controlSwitch === ControlSwitchEnum.RANGE && startDate && endDate) {
-          const start = formatDate(startDate);
-          const end = formatDate(endDate);
-          const result = await getTrackByRange(start, end);
-          if (!validateData(result)) throw new Error("Invalid data structure");
-          setTrack(result);
-        } else if (controlSwitch === ControlSwitchEnum.YEAR && selectedYear) {
-          const { startDate: start, endDate: end } =
-            setRangeByYear(selectedYear);
-          const result = await getTrackByRange(start, end);
-          if (!validateData(result)) throw new Error("Invalid data structure");
+        const { start, end } =
+          controlSwitch === ControlSwitchEnum.RANGE
+            ? { start: formatDate(startDate), end: formatDate(endDate) }
+            : (() => {
+                const { startDate, endDate } = setRangeByYear(selectedYear);
+                return { start: startDate, end: endDate };
+              })();
+
+        const result = await getTrackByRange(start, end);
+        
+        if (validateTrackData(result)) {
           setTrack(result);
         }
+        setError(null);
       } catch (error) {
         setError(error.message);
         setTrack(null);
+      } finally {
+        setRunFetchData(false);
       }
     };
 
-    fetchData();
-  }, [controlSwitch, startDate, endDate, selectedYear]);
+    if (runFetchData || selectedYear) {
+      fetchData();
+    }
+  }, [selectedYear, runFetchData]);
 
   return { track, error };
 };
