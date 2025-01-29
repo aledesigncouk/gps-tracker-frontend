@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "@styles/components/ControlSwitch.module.scss";
 import Switch from "react-switch";
 import { ControlSwitchEnum } from "@enums/enums";
