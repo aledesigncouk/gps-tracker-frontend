@@ -2,7 +2,7 @@ import React from "react";
 import Map from "@components/Map";
 import Topbar from "@components/Topbar";
 
-import styles from "@styles/Home.module.scss";
+import styles from "@styles/pages/Home.module.scss";
 
 const DEFAULT_CENTER = [52.6680064, -2.490368];
 

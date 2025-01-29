@@ -4,7 +4,7 @@ import ControlSwitch from "@components/ControlSwitch";
 import DateRangeSelector from "@components/DataRangeSelector";
 import { ControlSwitchEnum } from "@enums/enums";
 
-import styles from "@styles/Topbar.module.scss";
+import styles from "@styles/components/Topbar.module.scss";
 import "react-datepicker/dist/react-datepicker.css";
 
 const Topbar = (): JSX.Element => {

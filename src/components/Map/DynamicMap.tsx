@@ -6,7 +6,7 @@ import { Polyline } from "react-leaflet";
 import { useFetchTrack } from "@components/Map/hooks";
 
 import "leaflet/dist/leaflet.css";
-import styles from "@styles/Map.module.scss";
+import styles from "@styles/components/Map.module.scss";
 import Modal from "@components/Modal";
 
 const { MapContainer } = ReactLeaflet;
