@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import styles from "@styles/Modal.module.scss";
+import React from "react";
+import styles from "@styles/components/Modal.module.scss";
 
 interface ModalProps {
   title: string;
