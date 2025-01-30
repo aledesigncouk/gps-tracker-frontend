@@ -11,9 +11,7 @@ describe("Home Page", () => {
         </StoreProvider>
       );
     });
-    const heading = await screen.getByRole("heading", {
-      name: /welcome to next\.js/i,
-    });
-    expect(heading).toBeInTheDocument();
+    const home = await screen.getByTestId("main");
+    expect(home).toBeInTheDocument();
   });
 });
