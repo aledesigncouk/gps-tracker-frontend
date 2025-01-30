@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { JSX, useEffect, useState } from "react";
 import { useStore } from "@store/ContextStore";
 import Leaflet from "leaflet";
 import * as ReactLeaflet from "react-leaflet";
