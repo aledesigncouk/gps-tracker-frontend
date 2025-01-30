@@ -9,7 +9,7 @@ const DEFAULT_CENTER = [52.6680064, -2.490368];
 function Home() {
   
   return (
-    <main className={styles.home} data-testid='mai'>
+    <main className={styles.home} data-testid='main'>
       <Topbar />
       <Map
         width={"800"}
