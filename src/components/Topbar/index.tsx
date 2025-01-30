@@ -1,3 +1,4 @@
+import { JSX } from "react";
 import { useStore } from "@store/ContextStore";
 import YearSelector from "@components/YearSelector";
 import ControlSwitch from "@components/ControlSwitch";
