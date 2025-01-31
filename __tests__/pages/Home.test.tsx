@@ -3,7 +3,7 @@ import Home from "@pages/index";
 import StoreProvider from "@store/ContextStore";
 
 describe("Home Page", () => {
-  it("renders a heading", async () => {
+  it("renders the main component", async () => {
     await act(async () => {
       render(
         <StoreProvider>
