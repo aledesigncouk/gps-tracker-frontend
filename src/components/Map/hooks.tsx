@@ -1,13 +1,7 @@
 import { useState, useEffect } from "react";
 import { formatDate, getTrackByRange, setRangeByYear } from "@utils/utils";
 import { ControlSwitchEnum } from "@enums/enums";
-import { validateTrackData } from "@utils/utils";
-
-type Track = {
-  geometry: {
-    coordinates: [number, number][];
-  };
-};
+import { validateTrackData, Track } from "@utils/utils";
 
 export const useFetchTrack = (
   controlSwitch: string,

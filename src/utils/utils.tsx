@@ -9,7 +9,7 @@ interface Properties {
   year: number;
 }
 
-interface Track {
+export interface Track {
   type: "Feature";
   properties: Properties;
   geometry: Geometry;
