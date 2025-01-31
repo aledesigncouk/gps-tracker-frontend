@@ -11,7 +11,7 @@ describe("Home Page", () => {
         </StoreProvider>
       );
     });
-    const home = await screen.getByTestId("main");
+    const home = await screen.getByTestId("ain");
     expect(home).toBeInTheDocument();
   });
 });
