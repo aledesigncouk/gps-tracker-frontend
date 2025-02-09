@@ -22,9 +22,10 @@ const ControlSwitch: React.FC<ControlSwitchProps> = ({ onToggle }) => {
   };
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} data-testid="control-switch">
       <label>
         <Switch
+          data-testid="switch-btn"
           onChange={handleToggle}
           checked={controlSwitch === ControlSwitchEnum.YEAR}
         />

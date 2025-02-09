@@ -12,7 +12,6 @@ const DateRangeSelector = () => {
     setStartDate,
     endDate,
     setEndDate,
-    runFetchData,
     setRunFetchData,
   } = useStore();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -24,6 +23,7 @@ const DateRangeSelector = () => {
   return (
     <>
       <DatePicker
+        customInput={<input data-testid="start-date" type="text" />}
         selected={startDate}
         onChange={(date: Date) => setStartDate(date)}
         selectsStart
@@ -33,6 +33,7 @@ const DateRangeSelector = () => {
         withPortal
       />
       <DatePicker
+        customInput={<input data-testid="end-date" type="text" />}
         selected={endDate}
         onChange={(date: Date) => setEndDate(date)}
         selectsEnd
@@ -42,10 +43,11 @@ const DateRangeSelector = () => {
         dateFormat={"dd / MM / yyyy"}
         withPortal
       />
-      <Button variant="primary" onClick={handleFetch}>
+      <Button variant="primary" onClick={handleFetch} data-testid="fetch-button">
         Show Track
       </Button>
       <Modal
+        data-testid="modal"
         title="Error"
         content="Please select a start and end date."
         isOpen={isModalOpen}

@@ -13,7 +13,7 @@ const Topbar = (): JSX.Element => {
 
   return (
     <>
-      <div className={styles.topbar}>
+      <div className={styles.topbar} data-testid="topbar">
         <ControlSwitch onToggle={setControlSwitch} />
         {controlSwitch === ControlSwitchEnum.RANGE ? (
           <DateRangeSelector />
