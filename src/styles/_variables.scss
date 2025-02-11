@@ -1,15 +1,21 @@
-
 // Colors
-$color-green: #16C47F;
-$color-yellow: #FFD65A;
-$color-orange: #FF9D23;
-$color-red: #F93827;
+$color-green: #16c47f;
+$color-yellow: #ffd65a;
+$color-orange: #ff9d23;
+$color-red: #f93827;
 
 $color-background: #3b3b3b;
 $color-white: #ebebeb;
 
 // Typography
+$text-dark: #333;
+$text-light: #fff;
 
 // Spacing
 
 // Breakpoints
+$breakpoint-xs: 480px;
+$breakpoint-sm: 768px;
+$breakpoint-md: 1024px;
+$breakpoint-lg: 1200px;
+$breakpoint-xl: 1440px;
