@@ -3,7 +3,7 @@ import { getMonth, getYear } from 'date-fns';
 import range from "lodash/range";
 import DatePicker from "react-datepicker";
 import { useStore } from "@store/ContextStore";
-import { Button } from "react-bootstrap";
+import Button from "@components/Button";
 import Modal from "@components/Modal";
 
 import style from "@styles/components/DateRangeSelector.module.scss";
@@ -154,9 +154,7 @@ const DateRangeSelector = () => {
           withPortal
         />
       </div>
-      <Button className={style.button} onClick={handleFetch} data-testid="fetch-button">
-        Show Track
-      </Button>
+      <Button className={"btn-primary"} onClick={handleFetch} data-testid="fetch-button" label="Fetch Data" />
       <Modal
         data-testid="modal"
         title="Error"
