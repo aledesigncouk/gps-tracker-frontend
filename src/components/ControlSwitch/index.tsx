@@ -1,8 +1,8 @@
 import React from "react";
-import styles from "@styles/components/ControlSwitch.module.scss";
 import Switch from "react-switch";
 import { ControlSwitchEnum } from "@enums/enums";
 import { useStore } from "@store/ContextStore";
+import styles from "@styles/components/ControlSwitch.module.scss";
 
 interface ControlSwitchProps {
   onToggle: (isSet: ControlSwitchEnum) => void;
@@ -28,6 +28,9 @@ const ControlSwitch: React.FC<ControlSwitchProps> = ({ onToggle }) => {
           data-testid="switch-btn"
           onChange={handleToggle}
           checked={controlSwitch === ControlSwitchEnum.YEAR}
+          handleDiameter={30}
+          uncheckedIcon={false}
+          checkedIcon={false}
         />
       </label>
     </div>
