@@ -2,9 +2,8 @@ import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import { useStore } from "@store/ContextStore";
 import { Button } from "react-bootstrap";
-import Modal from "@components/Modal";
 
-// import "react-datepicker/dist/react-datepicker.css";
+import "react-datepicker/dist/react-datepicker.css";
 
 const DateRangeSelector = () => {
   const {
@@ -14,8 +13,7 @@ const DateRangeSelector = () => {
     setEndDate,
     setRunFetchData,
   } = useStore();
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-
+ 
   const handleFetch = () => {
     setRunFetchData(true);
   };
@@ -46,13 +44,6 @@ const DateRangeSelector = () => {
       <Button variant="primary" onClick={handleFetch} data-testid="fetch-button">
         Show Track
       </Button>
-      <Modal
-        data-testid="modal"
-        title="Error"
-        content="Please select a start and end date."
-        isOpen={isModalOpen}
-        setModal={setIsModalOpen}
-      />
     </>
   );
 };

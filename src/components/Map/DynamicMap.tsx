@@ -7,7 +7,6 @@ import { useFetchTrack } from "@components/Map/hooks";
 
 import "leaflet/dist/leaflet.css";
 import styles from "@styles/components/Map.module.scss";
-import Modal from "@components/Modal";
 
 const { MapContainer } = ReactLeaflet;
 
@@ -34,7 +33,7 @@ const Map: React.FC<MapProps> = ({
   }
 
   const { startDate, endDate, selectedYear, controlSwitch, runFetchData, setRunFetchData } = useStore();
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [ isFirstFetchComplete, setIsFirstFetchComplete ] = useState<boolean>(false);
 
   const { track, error }= useFetchTrack(
     controlSwitch,
@@ -43,8 +42,13 @@ const Map: React.FC<MapProps> = ({
     selectedYear,
     runFetchData,
     setRunFetchData
-  
   );
+
+  useEffect(() => {
+    if (track !== null || error !== null) {
+      setIsFirstFetchComplete(true);
+    }
+  }, [track, error, isFirstFetchComplete]);
 
   // map
   useEffect(() => {
@@ -58,6 +62,8 @@ const Map: React.FC<MapProps> = ({
     })();
   }, []);
 
+  console.log(track);
+
   return (
     <>
       <MapContainer className={mapClassName} {...rest}>
@@ -70,12 +76,6 @@ const Map: React.FC<MapProps> = ({
           />
         )}
       </MapContainer>
-      {error && <Modal
-        title="Error"
-        content="Unable to fetch valid track data. Please try again."
-        isOpen={isModalOpen}
-        setModal={setIsModalOpen}
-      />}
     </>
   );
 };
