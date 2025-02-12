@@ -1,10 +1,10 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
-import { useStore } from "@store/ContextStore";
+import { useControlSwitchStore } from "@store/ControlSwitchContext";
 import { ControlSwitchEnum } from "@enums/enums";
 import ControlSwitch from "@components/ControlSwitch";
 
-jest.mock("@store/ContextStore", () => ({
+jest.mock("@store/ControlSwitchContext", () => ({
   useStore: jest.fn(),
 }));
 
@@ -16,7 +16,7 @@ describe("ControlSwitch Component", () => {
     mockSetControlSwitch = jest.fn();
     mockOnToggle = jest.fn();
 
-    useStore.mockReturnValue({
+    (useControlSwitchStore as jest.Mock).mockReturnValue({
       controlSwitch: ControlSwitchEnum.RANGE,
       setControlSwitch: mockSetControlSwitch,
     });
@@ -38,7 +38,7 @@ describe("ControlSwitch Component", () => {
   });
 
   it("toggles switch state back on second click", () => {
-    useStore.mockReturnValue({
+    (useControlSwitchStore as jest.Mock).mockReturnValue({
       controlSwitch: ControlSwitchEnum.YEAR,
       setControlSwitch: mockSetControlSwitch,
     });
