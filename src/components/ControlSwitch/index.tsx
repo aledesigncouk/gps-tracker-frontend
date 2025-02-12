@@ -2,14 +2,14 @@ import React from "react";
 import styles from "@styles/components/ControlSwitch.module.scss";
 import Switch from "react-switch";
 import { ControlSwitchEnum } from "@enums/enums";
-import { useStore } from "@store/ContextStore";
+import { useControlSwitchStore } from "@store/ControlSwitchContext";
 
 interface ControlSwitchProps {
   onToggle: (isSet: ControlSwitchEnum) => void;
 }
 
 const ControlSwitch: React.FC<ControlSwitchProps> = ({ onToggle }) => {
-  const { controlSwitch, setControlSwitch } = useStore();
+  const { controlSwitch, setControlSwitch } = useControlSwitchStore();
 
   const handleToggle = () => {
     const newSwitchValue =
