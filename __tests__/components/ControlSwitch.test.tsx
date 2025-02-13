@@ -5,7 +5,7 @@ import { ControlSwitchEnum } from "@enums/enums";
 import ControlSwitch from "@components/ControlSwitch";
 
 jest.mock("@store/ControlSwitchContext", () => ({
-  useStore: jest.fn(),
+  useControlSwitchStore: jest.fn(),
 }));
 
 describe("ControlSwitch Component", () => {
@@ -20,6 +20,10 @@ describe("ControlSwitch Component", () => {
       controlSwitch: ControlSwitchEnum.RANGE,
       setControlSwitch: mockSetControlSwitch,
     });
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
   });
 
   it("renders the switch component", () => {
