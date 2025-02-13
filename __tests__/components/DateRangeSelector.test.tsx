@@ -29,7 +29,7 @@ describe("DateRangeSelector Component", () => {
 
     expect(screen.getByTestId("start-date")).toBeInTheDocument();
     expect(screen.getByTestId("end-date")).toBeInTheDocument();
-    expect(screen.getByTestId("fetch-button")).toBeInTheDocument();
+    expect(screen.getByTestId("button")).toBeInTheDocument();
   });
 
   it("calls setStartDate when selecting a start date", () => {
@@ -50,7 +50,7 @@ describe("DateRangeSelector Component", () => {
 
   it("triggers fetch when clicking the button", () => {
     render(<DateRangeSelector />);
-    const fetchButton = screen.getByTestId("fetch-button");
+    const fetchButton = screen.getByTestId("button");
     
     fireEvent.click(fetchButton);
     expect(mockSetRunFetchData).toHaveBeenCalledWith(true);

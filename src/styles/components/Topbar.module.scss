@@ -1,15 +1,13 @@
-@import "@styles/settings/_settings";
+@import "@styles/_settings";
 
 .topbar {
-  // position: sticky;
-  // margin-left: 200px;
-  // display: flex;
-  // justify-content: flex-start;
-  // align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   z-index: 999;
   height: 100px;
 
-  background-color: #3b3b3b;
-  color: #ffffff;
-  padding: 1rem;
+  background-color: $color-background;
+  color: $color-white;
+  padding: 2rem;
 }

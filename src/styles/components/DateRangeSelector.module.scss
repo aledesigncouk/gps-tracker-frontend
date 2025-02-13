@@ -1,0 +1,18 @@
+@import "@styles/_settings";
+
+.datePickerWrapper {
+    text-align: center;
+
+  .label {
+    
+  }
+
+  .dateInput {
+    padding: 10px;
+    border-radius: 15px;
+    border: none;
+    height: 35px;
+    font-size: large;
+    width: 150px;
+  }
+}
