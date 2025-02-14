@@ -33,7 +33,7 @@ const YearSelector: React.FC = () => {
 
   return (
     <div data-testid="year-selector" className={styles.yearContainer}>
-      <label htmlFor="dropdown">Choose a year:</label>
+      <label className={styles.yearLabel} htmlFor="dropdown">Choose a year:</label>
       <select
         id="dropdown"
         className={styles.yearDropdown}

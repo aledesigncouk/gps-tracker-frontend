@@ -31,6 +31,7 @@ const DateRangeSelector = () => {
       <div className={style.datePickerWrapper}>
         <label className={style.label}>Start Date</label>
         <DatePicker
+          data-testid="start-date"
           renderCustomHeader={({
             date,
             changeYear,
@@ -88,6 +89,7 @@ const DateRangeSelector = () => {
       <div className={style.datePickerWrapper}>
         <label className={style.label}>End Date</label>
         <DatePicker
+          data-testid="end-date"
           renderCustomHeader={({
             date,
             changeYear,
