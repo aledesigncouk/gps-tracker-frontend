@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
 import { formatDate, getTrackByRange, setRangeByYear } from "@utils/utils";
-import { ControlSwitchEnum } from "@enums/enums";
+
 import { validateTrackData, Track } from "@utils/utils";
 
 export const useFetchTrack = (
-  controlSwitch: string,
   startDate: Date | null,
   endDate: Date | null,
   selectedYear: string | null,
@@ -14,20 +13,11 @@ export const useFetchTrack = (
   const [track, setTrack] = useState<Track | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { start, end } =
-          controlSwitch === ControlSwitchEnum.RANGE
-            ? { start: formatDate(startDate), end: formatDate(endDate) }
-            : (() => {
-                const { startDate, endDate } = setRangeByYear(selectedYear);
-                return { start: startDate, end: endDate };
-              })();
+        const result = await getTrackByRange(formatDate(startDate), formatDate(endDate));
 
-        const result = await getTrackByRange(start, end);
-        
         if (validateTrackData(result)) {
           setTrack(result);
         }
