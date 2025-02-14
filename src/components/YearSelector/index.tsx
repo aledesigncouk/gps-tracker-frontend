@@ -29,9 +29,6 @@ const YearSelector: React.FC = () => {
     const { startDate, endDate } = setRangeByYear(value);
     setStartDate(new Date(startDate));
     setEndDate(new Date(endDate));
-
-    console.log("s", startDate);
-    console.log("e", endDate);
   };
 
   return (
@@ -44,7 +41,7 @@ const YearSelector: React.FC = () => {
         onChange={handleChange}
         style={{ marginLeft: "10px", padding: "5px" }}
       >
-        <option value="empty">Years</option>
+        <option value="empty">Select year</option>
         {years.map((option, index) => (
           <option key={index} value={option}>
             {option}

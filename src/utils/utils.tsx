@@ -1,19 +1,4 @@
-type Coordinate = [number, number];
-
-interface Geometry {
-  type: "LineString";
-  coordinates: Coordinate[];
-}
-
-interface Properties {
-  year: number;
-}
-
-export interface Track {
-  type: "Feature";
-  properties: Properties;
-  geometry: Geometry;
-}
+import { Track } from "@/interfaces/interfaces";
 
 export const getTrackByRange = async (
   start: string,

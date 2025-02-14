@@ -1,26 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import { getMonth, getYear } from 'date-fns';
 import range from "lodash/range";
 import DatePicker from "react-datepicker";
-import { useStore } from "@store/ContextStore";
-import Button from "@components/Button";
-import Modal from "@components/Modal";
+import { useRangeDatesStore } from "@store/ContextRangeDates";
 
 import style from "@styles/components/DateRangeSelector.module.scss";
 
 const DateRangeSelector = () => {
-  const {
-    startDate,
-    setStartDate,
-    endDate,
-    setEndDate,
-    setRunFetchData,
-  } = useStore();
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
-  const handleFetch = () => {
-    setRunFetchData(true);
-  };
+  const { startDate, endDate, setStartDate, setEndDate } = useRangeDatesStore();
 
   const years = range(2021, getYear(new Date()) + 1, 1);
   const months = [
@@ -154,14 +142,6 @@ const DateRangeSelector = () => {
           withPortal
         />
       </div>
-      <Button className={"btn-primary"} onClick={handleFetch} data-testid="fetch-button" label="Fetch Data" />
-      <Modal
-        data-testid="modal"
-        title="Error"
-        content="Please select a start and end date."
-        isOpen={isModalOpen}
-        setModal={setIsModalOpen}
-      />
     </>
   );
 };

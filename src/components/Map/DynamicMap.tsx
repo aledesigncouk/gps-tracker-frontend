@@ -1,5 +1,4 @@
-import { JSX, useEffect, useState } from "react";
-import { useStore } from "@store/ContextStore";
+import { JSX, useEffect } from "react";
 import Leaflet from "leaflet";
 import * as ReactLeaflet from "react-leaflet";
 import { Polyline } from "react-leaflet";
@@ -7,10 +6,9 @@ import { useFetchTrack } from "@hooks/hooks";
 
 import "leaflet/dist/leaflet.css";
 import styles from "@styles/components/Map.module.scss";
-import Modal from "@components/Modal";
+import { Track } from "@/interfaces/interfaces";
 
 const { MapContainer } = ReactLeaflet;
-
 const red = { color: "red" };
 
 type MapProps = {
@@ -18,6 +16,7 @@ type MapProps = {
   className?: string;
   width?: string;
   height?: string;
+  track: Track;
 };
 
 const Map: React.FC<MapProps> = ({
@@ -33,21 +32,8 @@ const Map: React.FC<MapProps> = ({
     mapClassName = `${mapClassName} ${className}`;
   }
 
-  const { startDate, endDate, selectedYear, controlSwitch, runFetchData, setRunFetchData } = useStore();
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const { track, error } = useFetchTrack();
 
-  const { track, error } = useFetchTrack(
-    controlSwitch,
-    startDate,
-    endDate,
-    selectedYear,
-    runFetchData,
-    setRunFetchData
-  );
-
-  console.log("map-track", track);
-
-  // map
   useEffect(() => {
     (async function init() {
       delete Leaflet.Icon.Default.prototype._getIconUrl;
@@ -71,12 +57,6 @@ const Map: React.FC<MapProps> = ({
           />
         )}
       </MapContainer>
-      {error && <Modal
-        title="Error"
-        content="Unable to fetch valid track data. Please try again."
-        isOpen={isModalOpen}
-        setModal={setIsModalOpen}
-      />}
     </>
   );
 };

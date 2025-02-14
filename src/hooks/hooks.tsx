@@ -1,17 +1,13 @@
 import { useState, useEffect } from "react";
-import { formatDate, getTrackByRange, setRangeByYear } from "@utils/utils";
+import { formatDate, getTrackByRange } from "@utils/utils";
+import { validateTrackData } from "@utils/utils";
+import { Track } from "@/interfaces/interfaces";
+import { useRangeDatesStore } from "@/store/ContextRangeDates";
 
-import { validateTrackData, Track } from "@utils/utils";
-
-export const useFetchTrack = (
-  startDate: Date | null,
-  endDate: Date | null,
-  selectedYear: string | null,
-  runFetchData: boolean,
-  setRunFetchData: (value: boolean) => void
-) => {
+export const useFetchTrack = () => {
   const [track, setTrack] = useState<Track | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const { startDate, endDate } = useRangeDatesStore();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -25,15 +21,12 @@ export const useFetchTrack = (
       } catch (error) {
         setError(error.message);
         setTrack(null);
-      } finally {
-        setRunFetchData(false);
-      }
+      } 
     };
 
-    if (runFetchData || selectedYear) {
-      fetchData();
-    }
-  }, [selectedYear, runFetchData]);
+    fetchData();
+
+  }, [startDate, endDate]);
 
   return { track, error };
 };
