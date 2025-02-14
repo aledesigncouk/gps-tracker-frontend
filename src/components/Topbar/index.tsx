@@ -7,12 +7,13 @@ import { ControlSwitchEnum } from "@enums/enums";
 
 import styles from "@styles/components/Topbar.module.scss";
 import "react-datepicker/dist/react-datepicker.css";
+import RangeDatesContextStore from "@/store/ContextRangeDates";
 
 const Topbar = (): JSX.Element => {
   const { controlSwitch, setControlSwitch } = useStore();
 
   return (
-    <>
+    <RangeDatesContextStore>
       <div className={styles.topbar} data-testid="topbar">
         <ControlSwitch onToggle={setControlSwitch} />
         {controlSwitch === ControlSwitchEnum.RANGE ? (
@@ -21,7 +22,7 @@ const Topbar = (): JSX.Element => {
           <YearSelector />
         )}
       </div>
-    </>
+    </RangeDatesContextStore>
   );
 };
 

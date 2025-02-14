@@ -1,11 +1,12 @@
-import { useStore } from "@store/ContextStore";
+import { useRangeDatesStore } from "@store/ContextRangeDates";
 import { useState, useEffect } from "react";
-import { getYears } from "@utils/utils";
+import { getYears, setRangeByYear } from "@utils/utils";
 
 import styles from "@styles/components/YearSelector.module.scss";
 
 const YearSelector: React.FC = () => {
-  const { selectedYear, setSelectedYear } = useStore(); // selected year
+  const { setStartDate, setEndDate } = useRangeDatesStore(); // selected year
+  const [selectedYear, setSelectedYear] = useState<string>("");
   const [years, setYears] = useState<string[]>([]); // list of available years
 
   useEffect(() => {
@@ -22,9 +23,15 @@ const YearSelector: React.FC = () => {
     fetchYears();
   }, []);
 
-  const handleChange = (event) => {
+  const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const value = event.target.value;
     setSelectedYear(value);
+    const { startDate, endDate } = setRangeByYear(value);
+    setStartDate(new Date(startDate));
+    setEndDate(new Date(endDate));
+
+    console.log("s", startDate);
+    console.log("e", endDate);
   };
 
   return (

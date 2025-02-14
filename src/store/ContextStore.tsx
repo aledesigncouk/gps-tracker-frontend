@@ -1,10 +1,6 @@
 import React, { createContext, useState, ReactNode } from "react";
 import { ControlSwitchEnum } from "@enums/enums";
 interface StoreType {
-  startDate: Date;
-  setStartDate: (date: Date) => void;
-  endDate: Date;
-  setEndDate: (date: Date) => void;
   selectedYear: string;
   setSelectedYear: (year: string) => void;
   controlSwitch: ControlSwitchEnum;
@@ -16,8 +12,6 @@ interface StoreType {
 const Store = createContext<StoreType | undefined>(undefined);
 
 export const ContextStore = ({ children }: { children: ReactNode }) => {
-  const [startDate, setStartDate] = useState<Date>(new Date()); // set a default range
-  const [endDate, setEndDate] = useState<Date>(new Date());
   const [selectedYear, setSelectedYear] = useState<string>("");
   const [runFetchData, setRunFetchData] = useState<boolean>(false);
   const [controlSwitch, setControlSwitch] = useState<ControlSwitchEnum>(
@@ -26,10 +20,6 @@ export const ContextStore = ({ children }: { children: ReactNode }) => {
   return (
     <Store.Provider
       value={{
-        startDate: startDate,
-        setStartDate: setStartDate,
-        endDate: endDate,
-        setEndDate: setEndDate,
         selectedYear: selectedYear,
         setSelectedYear: setSelectedYear,
         controlSwitch: controlSwitch,

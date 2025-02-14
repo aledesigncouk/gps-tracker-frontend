@@ -3,7 +3,7 @@ import { useStore } from "@store/ContextStore";
 import Leaflet from "leaflet";
 import * as ReactLeaflet from "react-leaflet";
 import { Polyline } from "react-leaflet";
-import { useFetchTrack } from "@components/Map/hooks";
+import { useFetchTrack } from "@hooks/hooks";
 
 import "leaflet/dist/leaflet.css";
 import styles from "@styles/components/Map.module.scss";
@@ -36,15 +36,16 @@ const Map: React.FC<MapProps> = ({
   const { startDate, endDate, selectedYear, controlSwitch, runFetchData, setRunFetchData } = useStore();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
-  const { track, error }= useFetchTrack(
+  const { track, error } = useFetchTrack(
     controlSwitch,
     startDate,
     endDate,
     selectedYear,
     runFetchData,
     setRunFetchData
-  
   );
+
+  console.log("map-track", track);
 
   // map
   useEffect(() => {
