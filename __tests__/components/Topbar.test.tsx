@@ -27,3 +27,10 @@ describe('Topbar component', () => {
     expect(yearSelector).toBeInTheDocument();
   });
 });
+
+describe('Topbar component', () => {
+  it('match the snapshot', () => {
+    const { asFragment } = render(<Topbar />);
+    expect(asFragment()).toMatchSnapshot();
+  });
+});
