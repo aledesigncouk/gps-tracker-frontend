@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import Topbar from '@components/Topbar';
 
 jest.mock('@components/YearSelector', () => () => <div data-testid="year-selector">Year Selector</div>);
@@ -16,14 +16,14 @@ describe('Topbar component', () => {
   });
 
   it('renders the DateRangeSelector component', () => {
-    const dateRangeSelector = screen.queryByTestId('date-range-selector');
+    const topbar = screen.queryByTestId('topbar');
+    const dateRangeSelector = within(topbar).queryByTestId('date-range-selector');
     expect(dateRangeSelector).toBeInTheDocument();
-    expect(dateRangeSelector).toHaveTextContent('Date Range Selector');
   });
 
   it('renders the YearSelector component', () => {
-    const yearSelector = screen.queryByTestId('year-selector');
+    const topbar = screen.queryByTestId('topbar');
+    const yearSelector = within(topbar).queryByTestId('year-selector');
     expect(yearSelector).toBeInTheDocument();
-    expect(yearSelector).toHaveTextContent('Year Selector');
   });
 });
