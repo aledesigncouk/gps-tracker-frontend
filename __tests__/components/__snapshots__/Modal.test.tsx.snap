@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Modal component  match the snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="modal"
+  >
+    <div
+      class="overlay"
+    >
+      <div
+        class="modalContent"
+      >
+        <h2>
+          Test Title
+        </h2>
+        <p>
+          Test Content
+        </p>
+        <button
+          class="closeModal"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

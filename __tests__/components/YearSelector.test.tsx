@@ -1,74 +1,126 @@
-import React from "react";
-import { render, screen, fireEvent, waitFor, act } from "@testing-library/react";
-import { useStore } from "@store/ContextStore";
-import { getYears } from "@utils/utils";
-import YearSelector from "@components/YearSelector";
+import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
+import YearSelector from '@components/YearSelector';
+import { useRangeDatesStore } from '@store/ContextRangeDates';
+import { getYears, setRangeByYear } from '@utils/utils';
 
-jest.mock("@store/ContextStore", () => ({
-  useStore: jest.fn(),
+jest.mock('@store/ContextRangeDates', () => ({
+  useRangeDatesStore: jest.fn(),
 }));
 
-jest.mock("@utils/utils", () => ({
+jest.mock('@utils/utils', () => ({
   getYears: jest.fn(),
+  setRangeByYear: jest.fn(),
 }));
 
-describe("YearSelector Component", () => {
-  let mockSetSelectedYear;
+describe('YearSelector component', () => {
+  const setStartDate = jest.fn();
+  const setEndDate = jest.fn();
 
   beforeEach(() => {
-    jest.spyOn(console, "error").mockImplementation(() => {}); 
-    mockSetSelectedYear = jest.fn();
-    useStore.mockReturnValue({
-      selectedYear: "2023",
-      setSelectedYear: mockSetSelectedYear,
+    jest.clearAllMocks();
+
+    useRangeDatesStore.mockReturnValue({
+      setStartDate,
+      setEndDate,
+    });
+
+    getYears.mockResolvedValue(['2021', '2022', '2023', '2024']);
+  });
+
+  it('renders the YearSelector component', async () => {
+    render(<YearSelector />);
+    const yearSelector = screen.getByTestId('year-selector');
+    expect(yearSelector).toBeInTheDocument();
+  });
+
+  it('renders the dropdown with available years', async () => {
+    render(<YearSelector />);
+    const yearDropdown = screen.getByTestId('year-selector').querySelector('select');
+
+    await waitFor(() => {
+      expect(yearDropdown).toHaveTextContent('2021');
+      expect(yearDropdown).toHaveTextContent('2022');
+      expect(yearDropdown).toHaveTextContent('2023');
+      expect(yearDropdown).toHaveTextContent('2024');
     });
   });
 
-  afterEach(() => {
-    jest.restoreAllMocks();
-  });
-  
-
-  it("renders the YearSelector component", async () => {
-    await act(async () => {
-      render(<YearSelector />);
+  it('fires setStartDate and setEndDate functions when a year is selected', async () => {
+    setRangeByYear.mockReturnValue({
+      startDate: '2023-01-01',
+      endDate: '2023-12-31',
     });
-    expect(screen.getByTestId("year-selector")).toBeInTheDocument();
-    expect(screen.getByLabelText(/choose a year:/i)).toBeInTheDocument();
-  });
 
-  it("fetches and displays years", async () => {
-    getYears.mockResolvedValue(["2020", "2021", "2022", "2023"]);
+    render(<YearSelector />);
+    const yearDropdown = screen.getByTestId('year-selector').querySelector('select');
+
+    await waitFor(() => expect(yearDropdown).toHaveTextContent('2021'));
+
     await act(async () => {
-      render(<YearSelector />);
+      fireEvent.change(yearDropdown, { target: { value: '2023' } });
     });
 
     await waitFor(() => {
-      expect(screen.getByText("2020")).toBeInTheDocument();
-      expect(screen.getByText("2021")).toBeInTheDocument();
-      expect(screen.getByText("2022")).toBeInTheDocument();
-      expect(screen.getByText("2023")).toBeInTheDocument();
+      expect(setStartDate).toHaveBeenCalledWith(new Date('2023-01-01'));
+      expect(setEndDate).toHaveBeenCalledWith(new Date('2023-12-31'));
     });
   });
 
-  it("handles year selection", async () => {
+  it('does not call setStartDate or setEndDate if an empty value is selected', async () => {
+    render(<YearSelector />);
+    const yearDropdown = screen.getByTestId('year-selector').querySelector('select');
+
+    await waitFor(() => expect(yearDropdown).toHaveTextContent('2021'));
+
     await act(async () => {
-      render(<YearSelector />);
+      fireEvent.change(yearDropdown, { target: { value: 'empty' } });
     });
-    const select = screen.getByLabelText(/choose a year:/i);
-    await act(async () => {
-      fireEvent.change(select, { target: { value: "2022" } });
-    });
-    expect(mockSetSelectedYear).toHaveBeenCalledWith("2022");
+
+    expect(setStartDate).not.toHaveBeenCalled();
+    expect(setEndDate).not.toHaveBeenCalled();
   });
 
-  it("handles API failure gracefully", async () => {
-    getYears.mockRejectedValue(new Error("Failed to fetch years"));
+  it('handles error when getYears fails', async () => {
+    getYears.mockRejectedValueOnce(new Error('Failed to fetch years'));
+    
+    render(<YearSelector />);
+    
+    const yearDropdown = screen.getByTestId('year-selector').querySelector('select');
+    
+    await waitFor(() => {
+      expect(yearDropdown).toHaveTextContent('Select year');
+    });
+  });
+
+  it('fires setStartDate and setEndDate with expected values when a different year is selected', async () => {
+    setRangeByYear.mockReturnValueOnce({
+      startDate: '2021-01-01',
+      endDate: '2021-12-31',
+    });
+    setRangeByYear.mockReturnValueOnce({
+      startDate: '2022-01-01',
+      endDate: '2022-12-31',
+    });
+
+    render(<YearSelector />);
+    const yearDropdown = screen.getByTestId('year-selector').querySelector('select');
+
+    await waitFor(() => expect(yearDropdown).toHaveTextContent('2021'));
+
     await act(async () => {
-      render(<YearSelector />);
+      fireEvent.change(yearDropdown, { target: { value: '2021' } });
     });
     await waitFor(() => {
-      expect(screen.queryByText("2020")).not.toBeInTheDocument();
+      expect(setStartDate).toHaveBeenCalledWith(new Date('2021-01-01'));
+      expect(setEndDate).toHaveBeenCalledWith(new Date('2021-12-31'));
+    });
+
+    await act(async () => {
+      fireEvent.change(yearDropdown, { target: { value: '2022' } });
+    });
+    await waitFor(() => {
+      expect(setStartDate).toHaveBeenCalledWith(new Date('2022-01-01'));
+      expect(setEndDate).toHaveBeenCalledWith(new Date('2022-12-31'));
     });
   });
 });

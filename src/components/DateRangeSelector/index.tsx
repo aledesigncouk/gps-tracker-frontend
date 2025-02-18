@@ -31,7 +31,7 @@ const DateRangeSelector = () => {
       <div className={style.datePickerWrapper}>
         <label className={style.label}>Start Date</label>
         <DatePicker
-          data-testid="start-date"
+          data-testid="startDate-picker"
           renderCustomHeader={({
             date,
             changeYear,
@@ -75,7 +75,7 @@ const DateRangeSelector = () => {
           </div>
           )}
           className={style.dateInput}
-          customInput={<input data-testid="start-date" type="text" />}
+          customInput={<input data-testid="startDate-input" type="text" />}
           selected={startDate}
           onChange={(date: Date) => setStartDate(date)}
           selectsStart
@@ -89,7 +89,7 @@ const DateRangeSelector = () => {
       <div className={style.datePickerWrapper}>
         <label className={style.label}>End Date</label>
         <DatePicker
-          data-testid="end-date"
+          data-testid="endDate-picker"
           renderCustomHeader={({
             date,
             changeYear,
@@ -133,7 +133,7 @@ const DateRangeSelector = () => {
           </div>
           )}
           className={style.dateInput}
-          customInput={<input data-testid="end-date" type="text" />}
+          customInput={<input data-testid="endDate-input" type="text" />}
           selected={endDate}
           onChange={(date: Date) => setEndDate(date)}
           selectsEnd
