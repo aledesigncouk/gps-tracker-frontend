@@ -8,7 +8,9 @@
       "@enums/*": ["src/enums/*"],
       "@styles/*": ["src/styles/*"],
       "@pages/*": ["src/pages/*"],
-      "@store/*": ["src/store/*"]
+      "@store/*": ["src/store/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "@interfaces/*": ["src/interfaces/*"]
     },
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],

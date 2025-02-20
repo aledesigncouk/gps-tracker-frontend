@@ -7,6 +7,7 @@ describe("Modal Component", () => {
 
   beforeEach(() => {
     mockSetModal = jest.fn();
+    jest.clearAllMocks();
   });
 
   it("renders the modal when isOpen is true", () => {
@@ -36,3 +37,12 @@ describe("Modal Component", () => {
     expect(mockSetModal).toHaveBeenCalledWith(false);
   });
 });
+
+describe('Modal component ', () => {
+  let mockSetModal;
+  it('match the snapshot', () => {
+    const { asFragment } = render(<Modal title="Test Title" content="Test Content" isOpen={true} setModal={mockSetModal} />);
+    expect(asFragment()).toMatchSnapshot();
+  });
+});
+

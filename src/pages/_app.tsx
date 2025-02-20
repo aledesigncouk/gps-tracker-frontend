@@ -1,11 +1,11 @@
-import ContextStore from "src/store/ContextStore";
+import ContextRangeDates from "@store/ContextRangeDates";
 import "@styles/globals.scss";
 
 function MyApp({ Component, pageProps }) {
   return (
-    <ContextStore>
+    <ContextRangeDates>
       <Component {...pageProps} />
-    </ContextStore>
+    </ContextRangeDates>
   );
 }
 

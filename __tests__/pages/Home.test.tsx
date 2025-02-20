@@ -1,14 +1,14 @@
 import { act, render, screen } from "@testing-library/react";
 import Home from "@pages/index";
-import StoreProvider from "@store/ContextStore";
+import { RangeDatesContextStore }  from "@store/ContextRangeDates";
 
 describe("Home Page", () => {
   it("renders the main component", async () => {
     await act(async () => {
       render(
-        <StoreProvider>
+        <RangeDatesContextStore>
           <Home />
-        </StoreProvider>
+        </RangeDatesContextStore>
       );
     });
     const home = await screen.getByTestId("main");

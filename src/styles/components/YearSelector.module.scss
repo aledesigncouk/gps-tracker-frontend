@@ -1,6 +1,12 @@
 @import "@styles/_settings";
 
 .yearContainer {
+  display: flex;
+  flex-flow: column;
+
+  .yearLabel {
+  }
+
   .yearDropdown {
     border: none;
   }

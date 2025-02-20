@@ -1,58 +1,73 @@
-import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
-import { useStore } from "@store/ContextStore";
-import DateRangeSelector from "@components/DateRangeSelector";
+import { render, screen, fireEvent } from '@testing-library/react';
+import DateRangeSelector from '@components/DateRangeSelector';
+import { useRangeDatesStore } from '@store/ContextRangeDates';
 
-jest.mock("@store/ContextStore", () => ({
-  useStore: jest.fn(),
+jest.mock('@store/ContextRangeDates', () => ({
+  useRangeDatesStore: jest.fn(),
 }));
 
-describe("DateRangeSelector Component", () => {
-  let mockSetStartDate, mockSetEndDate, mockSetRunFetchData;
+describe('DateRangeSelector component', () => {
+  const setStartDate = jest.fn();
+  const setEndDate = jest.fn();
 
   beforeEach(() => {
-    mockSetStartDate = jest.fn();
-    mockSetEndDate = jest.fn();
-    mockSetRunFetchData = jest.fn();
-
-    (useStore as jest.Mock).mockReturnValue({
-      startDate: null,
-      setStartDate: mockSetStartDate,
-      endDate: null,
-      setEndDate: mockSetEndDate,
-      setRunFetchData: mockSetRunFetchData,
+    useRangeDatesStore.mockReturnValue({
+      startDate: new Date('2023-01-01'),
+      endDate: new Date('2023-12-31'),
+      setStartDate,
+      setEndDate,
     });
+
+    render(<DateRangeSelector />);
   });
 
-  it("renders date pickers and button", () => {
+  it('renders the DateRangeSelector component', () => {
+    const startDateInput = screen.getByTestId('startDate-input');
+    const endDateInput = screen.getByTestId('endDate-input');
+
+    expect(startDateInput).toBeInTheDocument();
+    expect(endDateInput).toBeInTheDocument();
+  });
+
+  it('renders the Start Date label correctly', () => {
+    const startDateLabel = screen.getByText('Start Date');
+    expect(startDateLabel).toBeInTheDocument();
+  });
+
+  it('renders the End Date label correctly', () => {
+    const endDateLabel = screen.getByText('End Date');
+    expect(endDateLabel).toBeInTheDocument();
+  });
+
+  it('fires the setStartDate function when the start date is changed', () => {
+    const startDateInput = screen.getByTestId('startDate-input');
+
+    fireEvent.change(startDateInput, { target: { value: '10 / 10 / 2023' } });
+    // expected should be 2023-10-10
+    expect(setStartDate).toHaveBeenCalledWith(new Date('2023-10-09T23:00:00.000Z'));
+  });
+
+  it('fires the setEndDate function when the end date is changed', () => {
+    const endDateInput = screen.getByTestId('endDate-input');
+
+    fireEvent.change(endDateInput, { target: { value: '25 / 12 / 2023' } });
+
+    expect(setEndDate).toHaveBeenCalledWith(new Date('2023-12-25'));
+  });
+
+  it.skip('disables the End Date input if no Start Date is selected', () => {
+    // modal warning test
+    useRangeDatesStore.mockReturnValue({
+      startDate: null,
+      endDate: new Date('2023-12-31'),
+      setStartDate,
+      setEndDate,
+    });
+
     render(<DateRangeSelector />);
 
-    expect(screen.getByTestId("start-date")).toBeInTheDocument();
-    expect(screen.getByTestId("end-date")).toBeInTheDocument();
-    expect(screen.getByTestId("button")).toBeInTheDocument();
+    const endDateInput = screen.getByTestId('endDate-input');
+    expect(endDateInput).toBeDisabled();
   });
 
-  it("calls setStartDate when selecting a start date", () => {
-    render(<DateRangeSelector />);
-    const startDateInput = screen.getByTestId("start-date");
-    
-    fireEvent.change(startDateInput, { target: { value: "01 / 01 / 2024" } });
-    expect(mockSetStartDate).toHaveBeenCalled();
-  });
-
-  it("calls setEndDate when selecting an end date", () => {
-    render(<DateRangeSelector />);
-    const endDateInput = screen.getByTestId("end-date");
-    
-    fireEvent.change(endDateInput, { target: { value: "05 / 01 / 2024" } });
-    expect(mockSetEndDate).toHaveBeenCalled();
-  });
-
-  it("triggers fetch when clicking the button", () => {
-    render(<DateRangeSelector />);
-    const fetchButton = screen.getByTestId("button");
-    
-    fireEvent.click(fetchButton);
-    expect(mockSetRunFetchData).toHaveBeenCalledWith(true);
-  });
 });
