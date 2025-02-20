@@ -19,6 +19,7 @@
     "\\.js$": "<rootDir>/node_modules/babel-jest"
   },
   "dependencies": {
+    "bootstrap": "^5.3.3",
     "copy-webpack-plugin": "^12.0.2",
     "date-fns": "^4.1.0",
     "leaflet": "^1.9.4",

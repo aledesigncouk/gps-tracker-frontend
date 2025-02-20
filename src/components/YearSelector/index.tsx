@@ -1,8 +1,7 @@
 import { useRangeDatesStore } from "@store/ContextRangeDates";
 import { useState, useEffect } from "react";
 import { getYears, setRangeByYear } from "@utils/utils";
-
-import styles from "@styles/components/YearSelector.module.scss";
+import { Stack, Dropdown } from "react-bootstrap";
 
 const YearSelector: React.FC = () => {
   const { setStartDate, setEndDate } = useRangeDatesStore(); // selected year
@@ -22,32 +21,30 @@ const YearSelector: React.FC = () => {
     fetchYears();
   }, []);
 
-  const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const value = event.target.value;
-    setSelectedYear(value);
-    const { startDate, endDate } = setRangeByYear(value);
+  const handleChange = (year: string) => {
+    setSelectedYear(year);
+    const { startDate, endDate } = setRangeByYear(year);
     setStartDate(new Date(startDate));
     setEndDate(new Date(endDate));
   };
 
   return (
-    <div data-testid="year-selector" className={styles.yearContainer}>
-      <label className={styles.yearLabel} htmlFor="dropdown">Choose a year:</label>
-      <select
-        id="dropdown"
-        className={styles.yearDropdown}
-        value={selectedYear}
-        onChange={handleChange}
-        style={{ marginLeft: "10px", padding: "5px" }}
-      >
-        <option value="empty">Select year</option>
-        {years.map((option, index) => (
-          <option key={index} value={option}>
-            {option}
-          </option>
-        ))}
-      </select>
-    </div>
+    <Stack data-testid="year-selector" className="ms-auto">
+      <label className="" htmlFor="dropdown">Choose a year:</label>
+      <Dropdown onSelect={handleChange}>
+        <Dropdown.Toggle variant="success" id="dropdown-basic">
+          {selectedYear || "Select year"}
+        </Dropdown.Toggle>
+
+        <Dropdown.Menu>
+          {years.map((option, index) => (
+            <Dropdown.Item key={index} eventKey={option}>
+              {option}
+            </Dropdown.Item>
+          ))}
+        </Dropdown.Menu>
+      </Dropdown>
+    </Stack>
   );
 };
 
