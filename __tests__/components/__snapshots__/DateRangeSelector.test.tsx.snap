@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DateRangeSelector component match the snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="hstack gap-3"
+  >
+    <div
+      class=""
+    >
+      <label
+        class=""
+      >
+        Start Date
+      </label>
+      <div>
+        <div
+          class="react-datepicker__input-container"
+        >
+          <input
+            class=""
+            data-testid="startDate-input"
+            type="text"
+            value="01 / 01 / 2023"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      class=""
+    >
+      <label
+        class=""
+      >
+        End Date
+      </label>
+      <div>
+        <div
+          class="react-datepicker__input-container"
+        >
+          <input
+            class=""
+            data-testid="endDate-input"
+            type="text"
+            value="31 / 12 / 2023"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
