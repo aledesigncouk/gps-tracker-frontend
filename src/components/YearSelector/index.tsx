@@ -15,7 +15,6 @@ const YearSelector: React.FC = () => {
         const result = await getYears();
         setYears(Array.isArray(result) ? result : []);
       } catch (error) {
-        console.error("Failed to fetch years:", error);
         setYears([]);
       }
     };
