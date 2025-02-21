@@ -28,24 +28,25 @@ describe('YearSelector component', () => {
   });
 
   it('renders the YearSelector component', async () => {
-    await act(async () => {
-      render(<YearSelector />);
+    render(<YearSelector />);
+
+    await waitFor(() => {
+      expect(screen.getByTestId('year-selector')).toBeInTheDocument;
     });
-    const yearSelector = screen.getByTestId('year-selector');
-    expect(yearSelector).toBeInTheDocument();
   });
 
   it('renders the dropdown with available years', async () => {
-    await act(async () => {
-      render(<YearSelector />);
-    });
-    const yearDropdown = screen.getByTestId('year-selector').querySelector('select');
+    const years = ['2021', '2022', '2023', '2024'];
+
+    render(<YearSelector />);
 
     await waitFor(() => {
-      expect(yearDropdown).toHaveTextContent('2021');
-      expect(yearDropdown).toHaveTextContent('2022');
-      expect(yearDropdown).toHaveTextContent('2023');
-      expect(yearDropdown).toHaveTextContent('2024');
+      const dropdownToggle = screen.getByRole('button', { name: /select year/i });
+      fireEvent.click(dropdownToggle);
+
+      years.forEach(year => {
+        expect(screen.getByText(year)).toBeInTheDocument();
+      });
     });
   });
 
@@ -55,50 +56,42 @@ describe('YearSelector component', () => {
       endDate: '2023-12-31',
     });
 
-    await act(async () => {
-      render(<YearSelector />);
-    });
-    const yearDropdown = screen.getByTestId('year-selector').querySelector('select');
-
-    await waitFor(() => expect(yearDropdown).toHaveTextContent('2021'));
-
-    await act(async () => {
-      fireEvent.change(yearDropdown, { target: { value: '2023' } });
-    });
+    render(<YearSelector />);
 
     await waitFor(() => {
+      const dropdownToggle = screen.getByRole('button', { name: /select year/i });
+      fireEvent.click(dropdownToggle);
+
+      const yearItem = screen.getByText('2023');
+      fireEvent.click(yearItem);
+
       expect(setStartDate).toHaveBeenCalledWith(new Date('2023-01-01'));
       expect(setEndDate).toHaveBeenCalledWith(new Date('2023-12-31'));
     });
   });
 
-  it.skip('does not call setStartDate or setEndDate if an empty value is selected', async () => {
-    await act(async () => {
-      render(<YearSelector />);
+  it('does not call setStartDate or setEndDate if no year is selected', async () => {
+
+    render(<YearSelector />);
+
+    await waitFor(() => {
+      const dropdownToggle = screen.getByRole('button', { name: /select year/i });
+      fireEvent.click(dropdownToggle);
+      fireEvent.click(document.body);
+
+      expect(setStartDate).not.toHaveBeenCalled();
+      expect(setEndDate).not.toHaveBeenCalled();
     });
-    const yearDropdown = screen.getByTestId('year-selector').querySelector('select');
-
-    await waitFor(() => expect(yearDropdown).toHaveTextContent('2021'));
-
-    await act(async () => {
-      fireEvent.change(yearDropdown, { target: { value: 'empty' } });
-    });
-
-    expect(setStartDate).not.toHaveBeenCalled();
-    expect(setEndDate).not.toHaveBeenCalled();
   });
 
   it('handles error when getYears fails', async () => {
     getYears.mockRejectedValueOnce(new Error('Failed to fetch years'));
 
-    await act(async () => {
-      render(<YearSelector />);
-    });
-
-    const yearDropdown = screen.getByTestId('year-selector').querySelector('select');
+    render(<YearSelector />);
 
     await waitFor(() => {
-      expect(yearDropdown).toHaveTextContent('Select year');
+      const dropdownToggle = screen.getByRole('button', { name: /select year/i });
+      expect(dropdownToggle).toHaveTextContent('Select year');
     });
   });
 
@@ -112,27 +105,34 @@ describe('YearSelector component', () => {
       endDate: '2022-12-31',
     });
 
-    await act(async () => {
-      render(<YearSelector />);
-    });
-    const yearDropdown = screen.getByTestId('year-selector').querySelector('select');
+    render(<YearSelector />);
 
-    await waitFor(() => expect(yearDropdown).toHaveTextContent('2021'));
-
-    await act(async () => {
-      fireEvent.change(yearDropdown, { target: { value: '2021' } });
-    });
     await waitFor(() => {
+      const dropdownToggle = screen.getByRole('button', { name: /select year/i });
+      fireEvent.click(dropdownToggle);
+
+      const year2021 = screen.getByText('2021');
+      fireEvent.click(year2021);
+
       expect(setStartDate).toHaveBeenCalledWith(new Date('2021-01-01'));
       expect(setEndDate).toHaveBeenCalledWith(new Date('2021-12-31'));
-    });
 
-    await act(async () => {
-      fireEvent.change(yearDropdown, { target: { value: '2022' } });
-    });
-    await waitFor(() => {
+      const year2022 = screen.getByText('2022');
+      fireEvent.click(year2022);
+
       expect(setStartDate).toHaveBeenCalledWith(new Date('2022-01-01'));
       expect(setEndDate).toHaveBeenCalledWith(new Date('2022-12-31'));
-    });
+
+    })
+
+  });
+});
+
+describe('YearSelector component', () => {
+  it('match the snapshot', async () => {
+    await waitFor(() => {
+      const { asFragment } = render(<YearSelector />);
+      expect(asFragment()).toMatchSnapshot();
+    })
   });
 });

@@ -1,16 +1,19 @@
 import { JSX } from "react";
 import YearSelector from "@components/YearSelector";
 import DateRangeSelector from "@/components/DateRangeSelector";
+import { Row, Col } from "react-bootstrap";
 
-import styles from "@styles/components/Topbar.module.scss";
-import "react-datepicker/dist/react-datepicker.css";
 
 const Topbar = (): JSX.Element => {
   return (
-    <div className={styles.topbar} data-testid="topbar">
-      <DateRangeSelector />
-      <YearSelector />
-    </div>
+    <Row className="pt-2 d-flex align-items-center" data-testid="topbar">
+      <Col>
+        <DateRangeSelector />
+      </Col>
+      <Col>
+        <YearSelector />
+      </Col>
+    </Row>
   );
 };
 

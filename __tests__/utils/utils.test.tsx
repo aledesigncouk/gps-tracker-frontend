@@ -2,8 +2,8 @@ import {
   formatDate,
   setRangeByYear,
   validateTrackData,
-  Track
 } from "@/utils/utils";
+import { Track } from "@/interfaces/interfaces";
 
 describe("formatDate", () => {
   it("should return a valid date string in the format YYYY-MM-DD", () => {
@@ -26,24 +26,24 @@ describe("setRangeByYear", () => {
 describe("validateTrackData", () => {
   it("should return true for a valid track data", () => {
     const track = {
-        type:"Feature",
-        properties:{
-           year:2022
-        },
-        geometry:{
-           coordinates:[
-              [
-                 52.6609183,
-                 -2.4820783
-              ],
-              [
-                 52.6609183,
-                 -2.4820783
-              ],
-           ],
-           type:"LineString"
-        }
-     };
+      type: "Feature",
+      properties: {
+        year: 2022
+      },
+      geometry: {
+        coordinates: [
+          [
+            52.6609183,
+            -2.4820783
+          ],
+          [
+            52.6609183,
+            -2.4820783
+          ],
+        ],
+        type: "LineString"
+      }
+    };
     const result = validateTrackData(track as Track);
     expect(result).toBeTruthy();
   });

@@ -69,5 +69,11 @@ describe('DateRangeSelector component', () => {
     const endDateInput = screen.getByTestId('endDate-input');
     expect(endDateInput).toBeDisabled();
   });
+});
 
+describe('DateRangeSelector component', () => {
+  it('match the snapshot', () => {
+    const { asFragment } = render(<DateRangeSelector />);
+    expect(asFragment()).toMatchSnapshot();
+  });
 });

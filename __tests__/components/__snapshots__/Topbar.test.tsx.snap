@@ -3,18 +3,26 @@
 exports[`Topbar component match the snapshot 1`] = `
 <DocumentFragment>
   <div
-    class="topbar"
+    class="pt-2 d-flex align-items-center row"
     data-testid="topbar"
   >
     <div
-      data-testid="date-range-selector"
+      class="col"
     >
-      Date Range Selector
+      <div
+        data-testid="date-range-selector"
+      >
+        Date Range Selector
+      </div>
     </div>
     <div
-      data-testid="year-selector"
+      class="col"
     >
-      Year Selector
+      <div
+        data-testid="year-selector"
+      >
+        Year Selector
+      </div>
     </div>
   </div>
 </DocumentFragment>

@@ -3,8 +3,8 @@ import { getMonth, getYear } from 'date-fns';
 import range from "lodash/range";
 import DatePicker from "react-datepicker";
 import { useRangeDatesStore } from "@store/ContextRangeDates";
-
-import style from "@styles/components/DateRangeSelector.module.scss";
+import { Stack } from "react-bootstrap";
+import "react-datepicker/dist/react-datepicker.css";
 
 const DateRangeSelector = () => {
 
@@ -27,9 +27,9 @@ const DateRangeSelector = () => {
   ];
 
   return (
-    <>
-      <div className={style.datePickerWrapper}>
-        <label className={style.label}>Start Date</label>
+    <Stack direction="horizontal" gap={3}>
+      <div className="">
+        <label className="">Start Date</label>
         <DatePicker
           data-testid="startDate-picker"
           renderCustomHeader={({
@@ -74,7 +74,7 @@ const DateRangeSelector = () => {
             </button>
           </div>
           )}
-          className={style.dateInput}
+          className=""
           customInput={<input data-testid="startDate-input" type="text" />}
           selected={startDate}
           onChange={(date: Date) => setStartDate(date)}
@@ -86,8 +86,8 @@ const DateRangeSelector = () => {
         />
       </div>
 
-      <div className={style.datePickerWrapper}>
-        <label className={style.label}>End Date</label>
+      <div className="">
+        <label className="">End Date</label>
         <DatePicker
           data-testid="endDate-picker"
           renderCustomHeader={({
@@ -132,7 +132,7 @@ const DateRangeSelector = () => {
             </button>
           </div>
           )}
-          className={style.dateInput}
+          className=""
           customInput={<input data-testid="endDate-input" type="text" />}
           selected={endDate}
           onChange={(date: Date) => setEndDate(date)}
@@ -144,7 +144,7 @@ const DateRangeSelector = () => {
           withPortal
         />
       </div>
-    </>
+    </Stack>
   );
 };
 
