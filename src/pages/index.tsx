@@ -8,7 +8,7 @@ const DEFAULT_CENTER = [52.6680064, -2.490368];
 function Home() {
   
   return (
-    <Container fluid className="bg-primary text-white" data-testid='main'>
+    <Container fluid className="bg-primary min-vh-100 text-white" data-testid='main'>
       <Topbar />
       <Map
         width={"800"}
