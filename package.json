@@ -8,26 +8,47 @@
     "dev": "next dev",
     "build": "next build",
     "export": "next build && next export",
-    "start": "next start"
+    "start": "next start",
+    "test": "jest",
+    "test-cache": "npx jest --clearCache",
+    "test-watch": "npx jest --watch",
+    "husky": "husky",
+    "prepare": "husky"
+  },
+  "transform": {
+    "\\.js$": "<rootDir>/node_modules/babel-jest"
   },
   "dependencies": {
-    "bootstrap": "^5.3.1",
-    "copy-webpack-plugin": "^11.0.0",
-    "date-fns": "^2.30.0",
+    "bootstrap": "^5.3.3",
+    "copy-webpack-plugin": "^12.0.2",
+    "date-fns": "^4.1.0",
     "leaflet": "^1.9.4",
-    "next": "^15.1.6",
-    "react": "^18.2.0",
-    "react-bootstrap": "^2.10.8",
-    "react-datepicker": "^7.6.0",
-    "react-dom": "^18.2.0",
-    "react-icons": "^4.7.1",
-    "react-leaflet": "^4.2.0",
+    "next": "^15.1.7",
+    "react": "^19.0.0",
+    "react-bootstrap": "^2.10.9",
+    "react-datepicker": "^8.0.0",
+    "react-dom": "^19.0.0",
+    "react-icons": "^5.4.0",
+    "react-leaflet": "^5.0.0",
     "react-switch": "^7.1.0",
-    "sass": "^1.83.4"
+    "sass": "^1.84.0"
   },
   "devDependencies": {
-    "@types/react": "18.2.15",
+    "@babel/preset-env": "^7.26.8",
+    "@babel/preset-react": "^7.26.3",
+    "@babel/preset-typescript": "^7.26.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.2.0",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/jest": "^29.5.14",
+    "@types/react": "19.0.8",
+    "babel-jest": "^29.7.0",
     "globals": "^15.14.0",
-    "typescript": "5.1.6"
+    "husky": "^9.1.7",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "ts-jest": "^29.2.5",
+    "typescript": "5.7.3"
   }
 }

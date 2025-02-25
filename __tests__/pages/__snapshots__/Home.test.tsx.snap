@@ -1,0 +1,95 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Home component match the snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="bg-primary min-vh-100 text-white container-fluid"
+    data-testid="main"
+  >
+    <div
+      class="pt-2 d-flex align-items-center row"
+      data-testid="topbar"
+    >
+      <div
+        class="col"
+      >
+        <div
+          class="hstack gap-3"
+        >
+          <div
+            class=""
+          >
+            <label
+              class=""
+            >
+              Start Date
+            </label>
+            <div>
+              <div
+                class="react-datepicker__input-container"
+              >
+                <input
+                  class=""
+                  data-testid="startDate-input"
+                  type="text"
+                  value=""
+                />
+              </div>
+            </div>
+          </div>
+          <div
+            class=""
+          >
+            <label
+              class=""
+            >
+              End Date
+            </label>
+            <div>
+              <div
+                class="react-datepicker__input-container"
+              >
+                <input
+                  class=""
+                  data-testid="endDate-input"
+                  type="text"
+                  value=""
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="col"
+      >
+        <div
+          class="ms-auto vstack"
+          data-testid="year-selector"
+        >
+          <label
+            class=""
+            for="dropdown"
+          >
+            Choose a year:
+          </label>
+          <div
+            class="dropdown"
+          >
+            <button
+              aria-expanded="false"
+              class="dropdown-toggle btn btn-success"
+              data-testid="year-dropdown"
+              id="dropdown-basic"
+              type="button"
+            >
+              Select year
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div />
+  </div>
+</DocumentFragment>
+`;

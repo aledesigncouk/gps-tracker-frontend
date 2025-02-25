@@ -1,16 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import Map from "@components/Map";
 import Topbar from "@components/Topbar";
-
-import styles from "@styles/Home.module.scss";
-import { useStore } from "@store/ContextStore";
+import { Container } from "react-bootstrap";
 
 const DEFAULT_CENTER = [52.6680064, -2.490368];
 
-export default function Home() {
+function Home() {
   
   return (
-    <main className={styles.home}>
+    <Container fluid className="bg-primary min-vh-100 text-white" data-testid='main'>
       <Topbar />
       <Map
         width={"800"}
@@ -25,6 +23,8 @@ export default function Home() {
           />
         )}
       </Map>
-    </main>
+    </Container>
   );
 }
+
+export default Home;

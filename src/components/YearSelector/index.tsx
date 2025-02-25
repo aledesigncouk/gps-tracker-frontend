@@ -1,51 +1,50 @@
-import { useStore } from "@store/ContextStore";
+import { useRangeDatesStore } from "@store/ContextRangeDates";
 import { useState, useEffect } from "react";
-import { getYears } from "src/utils";
+import { getYears, setRangeByYear } from "@utils/utils";
+import { Stack, Dropdown } from "react-bootstrap";
 
-interface YearSelectorProps {
-  // onSelect: (value: string) => void;
-}
-
-const YearSelector: React.FC<YearSelectorProps> = () => {
-  const {selectedYear, setSelectedYear} = useStore(); // selected year
+const YearSelector: React.FC = () => {
+  const { setStartDate, setEndDate } = useRangeDatesStore(); // selected year
+  const [selectedYear, setSelectedYear] = useState<string>("");
   const [years, setYears] = useState<string[]>([]); // list of available years
 
   useEffect(() => {
     const fetchYears = async () => {
       try {
-        const result = await getYears(); 
-        setYears(Array.isArray(result) ? result : []); 
+        const result = await getYears();
+        setYears(Array.isArray(result) ? result : []);
       } catch (error) {
-        console.error("Failed to fetch years:", error); 
         setYears([]);
       }
     };
 
     fetchYears();
-  }, []); 
+  }, []);
 
-  const handleChange = (event) => {
-    const value = event.target.value;
-    setSelectedYear(value);
+  const handleChange = (year: string) => {
+    setSelectedYear(year);
+    const { startDate, endDate } = setRangeByYear(year);
+    setStartDate(new Date(startDate));
+    setEndDate(new Date(endDate));
   };
 
   return (
-    <div>
-      <label htmlFor="dropdown">Choose a year:</label>
-      <select
-        id="dropdown"
-        value={selectedYear}
-        onChange={handleChange}
-        style={{ marginLeft: "10px", padding: "5px" }}
-      >
-         <option value="empty">Years</option>
-        {years.map((option, index) => (
-          <option key={index} value={option}>
-            {option}
-          </option>
-        ))}
-      </select>
-    </div>
+    <Stack data-testid="year-selector" className="ms-auto">
+      <label className="" htmlFor="dropdown">Choose a year:</label>
+      <Dropdown onSelect={handleChange}>
+        <Dropdown.Toggle variant="success" id="dropdown-basic" data-testid="year-dropdown">
+          {selectedYear || "Select year"}
+        </Dropdown.Toggle>
+
+        <Dropdown.Menu data-testid="year-dropdown-menu">
+          {years.map((option, index) => (
+            <Dropdown.Item key={index} eventKey={option}>
+              {option}
+            </Dropdown.Item>
+          ))}
+        </Dropdown.Menu>
+      </Dropdown>
+    </Stack>
   );
 };
 

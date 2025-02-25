@@ -1,15 +1,14 @@
-import { useEffect, useState } from "react";
-import { useStore } from "@store/ContextStore";
+import { JSX, useEffect } from "react";
 import Leaflet from "leaflet";
 import * as ReactLeaflet from "react-leaflet";
 import { Polyline } from "react-leaflet";
-import { getTrackByRange, formatDate, setRangeByYear } from "src/utils";
+import { useFetchTrack } from "@hooks/hooks";
 
 import "leaflet/dist/leaflet.css";
-import styles from "@styles/Map.module.scss";
+import styles from "@styles/components/Map.module.scss";
+import { Track } from "@/interfaces/interfaces";
 
 const { MapContainer } = ReactLeaflet;
-
 const red = { color: "red" };
 
 type MapProps = {
@@ -17,12 +16,7 @@ type MapProps = {
   className?: string;
   width?: string;
   height?: string;
-};
-
-type Track = {
-  geometry: {
-    coordinates: [number, number][];
-  };
+  track: Track;
 };
 
 const Map: React.FC<MapProps> = ({
@@ -38,32 +32,7 @@ const Map: React.FC<MapProps> = ({
     mapClassName = `${mapClassName} ${className}`;
   }
 
-  const [track, setTrack] = useState<Track | null>(null);
-  const { startDate, endDate, selectedYear } = useStore();
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     if (startDate && endDate) {
-  //       const start = formatDate(startDate);
-  //       const end = formatDate(endDate);
-  //       const result = await getTrackByRange(startDate, endDate);
-  //       setTrack(result);
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, [startDate, endDate]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      if (selectedYear) {
-        const { startDate: start, endDate: end } = setRangeByYear(selectedYear);
-        const result = await getTrackByRange(start, end);
-        setTrack(result);
-      }
-    };
-    fetchData();
-  }, [selectedYear]);
+  const { track, error } = useFetchTrack();
 
   useEffect(() => {
     (async function init() {
@@ -77,13 +46,18 @@ const Map: React.FC<MapProps> = ({
   }, []);
 
   return (
-    <MapContainer className={mapClassName} {...rest}>
-      {children(ReactLeaflet, Leaflet)}
+    <>
+      <MapContainer className={mapClassName} {...rest}>
+        {children(ReactLeaflet, Leaflet)}
 
-      {track && (
-        <Polyline positions={track?.geometry?.coordinates} pathOptions={red} />
-      )}
-    </MapContainer>
+        {track && (
+          <Polyline
+            positions={track?.geometry?.coordinates}
+            pathOptions={red}
+          />
+        )}
+      </MapContainer>
+    </>
   );
 };
 
