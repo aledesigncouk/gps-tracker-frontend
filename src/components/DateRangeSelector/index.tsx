@@ -3,7 +3,7 @@ import { getMonth, getYear } from 'date-fns';
 import range from "lodash/range";
 import DatePicker from "react-datepicker";
 import { useRangeDatesStore } from "@store/ContextRangeDates";
-import { Stack } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 import "react-datepicker/dist/react-datepicker.css";
 
 const DateRangeSelector = () => {
@@ -27,9 +27,9 @@ const DateRangeSelector = () => {
   ];
 
   return (
-    <Stack direction="horizontal" gap={3}>
-      <div className="">
-        <label className="">Start Date</label>
+    <Row className="g-3">
+      <Col xs={12} sm={5}>
+        <label className="startDate-label">Start Date</label>
         <DatePicker
           data-testid="startDate-picker"
           renderCustomHeader={({
@@ -74,7 +74,7 @@ const DateRangeSelector = () => {
             </button>
           </div>
           )}
-          className=""
+          className="startDate-picker-input col-12"
           customInput={<input data-testid="startDate-input" type="text" />}
           selected={startDate}
           onChange={(date: Date) => setStartDate(date)}
@@ -84,10 +84,10 @@ const DateRangeSelector = () => {
           dateFormat={"dd / MM / yyyy"}
           withPortal
         />
-      </div>
+      </Col>
 
-      <div className="">
-        <label className="">End Date</label>
+      <Col xs={12} sm={5}>
+        <label className="endDate-label">End Date</label>
         <DatePicker
           data-testid="endDate-picker"
           renderCustomHeader={({
@@ -132,7 +132,7 @@ const DateRangeSelector = () => {
             </button>
           </div>
           )}
-          className=""
+          className="enddate-picker-input col-12"
           customInput={<input data-testid="endDate-input" type="text" />}
           selected={endDate}
           onChange={(date: Date) => setEndDate(date)}
@@ -143,8 +143,8 @@ const DateRangeSelector = () => {
           dateFormat={"dd / MM / yyyy"}
           withPortal
         />
-      </div>
-    </Stack>
+      </Col>
+    </Row>
   );
 };
 
