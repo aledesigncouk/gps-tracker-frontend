@@ -14,13 +14,13 @@ exports[`Home component match the snapshot 1`] = `
         class="col"
       >
         <div
-          class="hstack gap-3"
+          class="g-3 row"
         >
           <div
-            class=""
+            class="col-sm-5 col-12"
           >
             <label
-              class=""
+              class="startDate-label"
             >
               Start Date
             </label>
@@ -29,7 +29,7 @@ exports[`Home component match the snapshot 1`] = `
                 class="react-datepicker__input-container"
               >
                 <input
-                  class=""
+                  class="startDate-picker-input col-12"
                   data-testid="startDate-input"
                   type="text"
                   value=""
@@ -38,10 +38,10 @@ exports[`Home component match the snapshot 1`] = `
             </div>
           </div>
           <div
-            class=""
+            class="col-sm-5 col-12"
           >
             <label
-              class=""
+              class="endDate-label"
             >
               End Date
             </label>
@@ -50,7 +50,7 @@ exports[`Home component match the snapshot 1`] = `
                 class="react-datepicker__input-container"
               >
                 <input
-                  class=""
+                  class="enddate-picker-input col-12"
                   data-testid="endDate-input"
                   type="text"
                   value=""
