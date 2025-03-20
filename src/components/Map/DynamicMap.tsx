@@ -1,4 +1,4 @@
-import { JSX, useEffect } from "react";
+import { JSX, useEffect, useState } from "react";
 import Leaflet from "leaflet";
 import * as ReactLeaflet from "react-leaflet";
 import { Polyline } from "react-leaflet";
@@ -7,6 +7,8 @@ import { useFetchTrack } from "@hooks/hooks";
 import "leaflet/dist/leaflet.css";
 import styles from "@styles/components/Map.module.scss";
 import { Track } from "@/interfaces/interfaces";
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 
 const { MapContainer } = ReactLeaflet;
 const red = { color: "red" };
@@ -33,6 +35,7 @@ const Map: React.FC<MapProps> = ({
   }
 
   const { track, error } = useFetchTrack();
+  const [modalShow, setModalShow] = useState(false);
 
   useEffect(() => {
     (async function init() {
@@ -45,18 +48,45 @@ const Map: React.FC<MapProps> = ({
     })();
   }, []);
 
+  useEffect(() => {
+    if (track?.geometry.coordinates.length === 0) {
+      setModalShow(true);
+    }
+  }, [track]);
+
   return (
     <>
       <MapContainer className={mapClassName} {...rest}>
         {children(ReactLeaflet, Leaflet)}
 
-        {track && (
+        {track?.geometry.coordinates.length > 0 &&
           <Polyline
             positions={track?.geometry?.coordinates}
             pathOptions={red}
-          />
-        )}
+          />}
       </MapContainer>
+
+      {track?.geometry.coordinates.length === 0 &&
+        <Modal
+          show={modalShow}
+          onHide={() => setModalShow(false)}
+          backdrop="static"
+          centered
+          style={{ zIndex: 2000 }}
+          restoreFocus={false}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Warning</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            No coordinates found for this track. Please change the date range.
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="primary" onClick={() => setModalShow(false)}>
+              Close
+            </Button>
+          </Modal.Footer>
+        </Modal>}
     </>
   );
 };

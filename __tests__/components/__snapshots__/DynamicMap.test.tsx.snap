@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DynamicMap component render the data and match the snapshot 1`] = `
+<DocumentFragment>
+  <div
+    data-testid="map-container"
+  >
+    <div
+      data-testid="mock-children"
+    >
+      Mocked Children
+    </div>
+    <div
+      data-testid="polyline"
+    >
+      [[52.6609183,-2.4820783],[52.6609183,-2.4820783],[52.6610983,-2.4823683],[52.6612783,-2.4826583],[52.6614583,-2.4829483],[52.6616383,-2.4832383]]
+    </div>
+  </div>
+</DocumentFragment>
+`;
