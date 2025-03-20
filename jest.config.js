@@ -14,11 +14,15 @@ const customJestConfig = {
     "^@store/(.*)$": "<rootDir>/src/store/$1",
     "^@components/(.*)$": "<rootDir>/src/components/$1",
     "^@utils/(.*)$": "<rootDir>/src/utils/$1",
+    "^@hooks/(.*)$": "<rootDir>/src/hooks/$1"
   },
 
   transform: {
     "^.+\\.(js|jsx|ts|tsx)$": "babel-jest",
   },
+  transformIgnorePatterns: [
+    "node_modules/(?!react-leaflet|leaflet/)"
+  ],
 };
 
 module.exports = createJestConfig(customJestConfig);
