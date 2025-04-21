@@ -27,10 +27,11 @@ Follow these steps to set up and run the Nautilus Tracker app on your local mach
 #### Set Up Environment Variables
 
 In order to run the application locally, you will need to create a ```.env``` file in the root of the project directory. This file will store essential API variables, such as:
+```
 - API_URL
 - API_URL_YEARS
 - API_KEY.
-
+```
 **Tracks API response:**
 ```
 {
