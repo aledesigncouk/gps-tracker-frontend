@@ -17,7 +17,10 @@ This tool is ideal for applications involving geospatial analysis, transportatio
 ### Installation:
 
 Follow these steps to set up and run the Nautilus Tracker app on your local machine.
-
+```
+- npm install
+- npm run dev
+```
 #### Prerequisites:
  - **Node.js version 22.9.0**: Make sure you have Node.js installed.
  
