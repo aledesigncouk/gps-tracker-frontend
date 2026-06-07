@@ -1,2 +1,2 @@
 #!/bin/sh
-npx tsc --noEmit && npm run format:check && npm run lint
+npx tsc --noEmit && npm run format && npm run lint

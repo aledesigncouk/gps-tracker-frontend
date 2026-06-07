@@ -32,7 +32,9 @@ const YearSelector: React.FC = () => {
 
   return (
     <Stack data-testid="year-selector" className="ms-auto">
-      <label className="" htmlFor="dropdown">Choose a year:</label>
+      <label className="" htmlFor="dropdown">
+        Choose a year:
+      </label>
       <Dropdown onSelect={handleChange}>
         <Dropdown.Toggle variant="success" id="dropdown-basic" data-testid="year-dropdown">
           {selectedYear || "Select year"}

@@ -19,16 +19,15 @@ export const useFetchTrack = () => {
         if (validateTrackData(result)) {
           setTrack(result);
         }
-        
+
         setError(null);
       } catch (error) {
         setError(error.message);
         setTrack(null);
-      } 
+      }
     };
 
     fetchData();
-
   }, [startDate, endDate]);
 
   return { track, error };

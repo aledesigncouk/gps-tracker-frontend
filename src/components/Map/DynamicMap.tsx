@@ -17,11 +17,7 @@ type MapProps = {
   height?: string;
 };
 
-const Map: React.FC<MapProps> = ({
-  children,
-  className,
-  ...rest
-}) => {
+const Map: React.FC<MapProps> = ({ children, className, ...rest }) => {
   let mapClassName = styles.map;
 
   if (className) {
@@ -48,12 +44,7 @@ const Map: React.FC<MapProps> = ({
       <MapContainer className={mapClassName} {...rest}>
         {children(ReactLeaflet, Leaflet)}
 
-        {track && (
-          <Polyline
-            positions={track?.geometry?.coordinates}
-            pathOptions={red}
-          />
-        )}
+        {track && <Polyline positions={track?.geometry?.coordinates} pathOptions={red} />}
       </MapContainer>
     </>
   );

@@ -6,16 +6,10 @@ import { Container } from "react-bootstrap";
 const DEFAULT_CENTER = [52.6680064, -2.490368];
 
 function Home() {
-  
   return (
-    <Container fluid className="bg-primary min-vh-100 text-white" data-testid='main'>
+    <Container fluid className="bg-primary min-vh-100 text-white" data-testid="main">
       <Topbar />
-      <Map
-        width={"800"}
-        height={"400"}
-        center={DEFAULT_CENTER}
-        zoom={5}
-      >
+      <Map width={"800"} height={"400"} center={DEFAULT_CENTER} zoom={5}>
         {({ TileLayer }) => (
           <TileLayer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
