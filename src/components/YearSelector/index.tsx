@@ -16,6 +16,7 @@ const YearSelector: React.FC = () => {
         setYears(Array.isArray(result) ? result : []);
       } catch (error) {
         setYears([]);
+        throw error;
       }
     };
 

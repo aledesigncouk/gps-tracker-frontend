@@ -20,8 +20,6 @@ type MapProps = {
 const Map: React.FC<MapProps> = ({
   children,
   className,
-  width,
-  height,
   ...rest
 }) => {
   let mapClassName = styles.map;
@@ -36,7 +34,7 @@ const Map: React.FC<MapProps> = ({
 
   useEffect(() => {
     (async function init() {
-      delete (Leaflet.Icon.Default.prototype as any)._getIconUrl;
+      delete (Leaflet.Icon.Default.prototype as unknown as Record<string, unknown>)._getIconUrl;
       Leaflet.Icon.Default.mergeOptions({
         iconRetinaUrl: "leaflet/images/marker-icon-2x.png",
         iconUrl: "leaflet/images/marker-icon.png",

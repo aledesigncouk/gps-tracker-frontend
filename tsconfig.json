@@ -33,7 +33,7 @@
         "src/api/*"
       ]
     },
-    "target": "es5",
+    "target": "es6",
     "lib": [
       "dom",
       "dom.iterable",
@@ -63,6 +63,7 @@
     "node_modules"
   ],
   "types": [
-    "jest"
+    "jest",
+    "node"
   ]
 }

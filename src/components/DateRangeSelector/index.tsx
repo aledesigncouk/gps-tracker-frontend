@@ -47,7 +47,7 @@ const DateRangeSelector = () => {
             </button>
             <select
               value={getYear(date)}
-              onChange={({ target: { value } }) => changeYear(value as any)}
+              onChange={({ target: { value } }) => changeYear(Number(value))}
             >
               {years.map((option) => (
                 <option key={option} value={option}>
@@ -105,7 +105,7 @@ const DateRangeSelector = () => {
             </button>
             <select
               value={getYear(date)}
-              onChange={({ target: { value } }) => changeYear(value as any)}
+              onChange={({ target: { value } }) => changeYear(Number(value))}
             >
               {years.map((option) => (
                 <option key={option} value={option}>
