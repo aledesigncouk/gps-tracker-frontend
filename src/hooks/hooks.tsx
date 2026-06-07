@@ -10,6 +10,8 @@ export const useFetchTrack = () => {
   const { startDate, endDate } = useRangeDatesStore();
 
   useEffect(() => {
+    if (!startDate || !endDate) return;
+
     const fetchData = async () => {
       try {
         const result = await getTrackByRange(formatDate(startDate), formatDate(endDate));
@@ -17,6 +19,7 @@ export const useFetchTrack = () => {
         if (validateTrackData(result)) {
           setTrack(result);
         }
+        
         setError(null);
       } catch (error) {
         setError(error.message);

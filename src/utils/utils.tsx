@@ -17,7 +17,7 @@ export const validateTrackData = (data: Track): boolean => {
     !!data &&
     data.type === "Feature" &&
     !!data.properties &&
-    (typeof data.properties.year === "number" || typeof data.properties.year === "string") &&
+    (data.properties.year === undefined || typeof data.properties.year === "number" || typeof data.properties.year === "string") &&
     !!data.geometry &&
     data.geometry.type === "LineString" &&
     Array.isArray(data.geometry.coordinates) &&

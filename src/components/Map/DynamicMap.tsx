@@ -6,7 +6,6 @@ import { useFetchTrack } from "../../hooks/hooks";
 
 import "leaflet/dist/leaflet.css";
 import styles from "./Map.module.scss";
-import { Track } from "../../types/types";
 
 const { MapContainer } = ReactLeaflet;
 const red = { color: "red" };
@@ -16,7 +15,6 @@ type MapProps = {
   className?: string;
   width?: string;
   height?: string;
-  track: Track;
 };
 
 const Map: React.FC<MapProps> = ({
@@ -32,11 +30,13 @@ const Map: React.FC<MapProps> = ({
     mapClassName = `${mapClassName} ${className}`;
   }
 
-  const { track, error } = useFetchTrack();
+  const { track } = useFetchTrack();
+
+  console.log("Track data in Map component:", track);
 
   useEffect(() => {
     (async function init() {
-      delete Leaflet.Icon.Default.prototype._getIconUrl;
+      delete (Leaflet.Icon.Default.prototype as any)._getIconUrl;
       Leaflet.Icon.Default.mergeOptions({
         iconRetinaUrl: "leaflet/images/marker-icon-2x.png",
         iconUrl: "leaflet/images/marker-icon.png",
