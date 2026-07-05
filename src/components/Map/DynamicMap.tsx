@@ -1,3 +1,4 @@
+"use client";
 import { JSX, useEffect } from "react";
 import Leaflet from "leaflet";
 import * as ReactLeaflet from "react-leaflet";
@@ -25,8 +26,6 @@ const Map: React.FC<MapProps> = ({ children, className, ...rest }) => {
   }
 
   const { track } = useFetchTrack();
-
-  console.log("Track data in Map component:", track);
 
   useEffect(() => {
     (async function init() {

@@ -1,3 +1,4 @@
+"use client";
 import { JSX } from "react";
 import YearSelector from "@components/YearSelector";
 import DateRangeSelector from "@/components/DateRangeSelector";

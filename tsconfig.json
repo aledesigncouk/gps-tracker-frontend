@@ -1,36 +1,29 @@
 {
   "compilerOptions": {
-    "baseUrl": "./",
     "paths": {
       "@/*": [
-        "src/*"
+        "./src/*"
       ],
       "@components/*": [
-        "src/components/*"
+        "./src/components/*"
       ],
       "@utils/*": [
-        "src/utils/*"
+        "./src/utils/*"
       ],
       "@enums/*": [
-        "src/enums/*"
+        "./src/enums/*"
       ],
       "@styles/*": [
-        "src/styles/*"
+        "./src/styles/*"
       ],
       "@pages/*": [
-        "src/pages/*"
+        "./src/pages/*"
       ],
       "@store/*": [
-        "src/store/*"
-      ],
-      "@hooks/*": [
-        "src/hooks/*"
-      ],
-      "@interfaces/*": [
-        "src/interfaces/*"
+        "./src/store/*"
       ],
       "@api/*": [
-        "src/api/*"
+        "./src/api/*"
       ]
     },
     "target": "es6",
@@ -50,20 +43,26 @@
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "strictNullChecks": true
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "jest.setup.js",
-    "jest.config.js"
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts"
   ],
   "exclude": [
     "node_modules"
   ],
   "types": [
-    "jest",
+    "vitest/globals",
     "node"
   ]
 }

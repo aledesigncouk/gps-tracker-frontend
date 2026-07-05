@@ -1,3 +1,4 @@
+"use client";
 import { useRangeDatesStore } from "@store/ContextRangeDates";
 import { useState, useEffect } from "react";
 import { setRangeByYear } from "@utils/utils";

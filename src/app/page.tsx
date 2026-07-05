@@ -1,11 +1,11 @@
-import React from "react";
+"use client";
 import Map from "@components/Map";
 import Topbar from "@components/Topbar";
 import { Container } from "react-bootstrap";
 
 const DEFAULT_CENTER = [52.6680064, -2.490368];
 
-function Home() {
+export default function Home() {
   return (
     <Container fluid className="bg-primary min-vh-100 text-white" data-testid="main">
       <Topbar />
@@ -20,5 +20,3 @@ function Home() {
     </Container>
   );
 }
-
-export default Home;
