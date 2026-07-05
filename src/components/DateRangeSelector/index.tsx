@@ -135,7 +135,7 @@ const DateRangeSelector = () => {
           selectsEnd
           startDate={startDate}
           endDate={endDate}
-          minDate={startDate}
+          minDate={startDate ?? undefined}
           dateFormat={"dd / MM / yyyy"}
           withPortal
         />
