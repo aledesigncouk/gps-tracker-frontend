@@ -38,7 +38,8 @@ yarn-error.log*
 .vercel
 .swc
 
-
-
 # VS Code
 .vscode
+
+# AI
+.claude
