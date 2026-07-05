@@ -23,6 +23,9 @@
 *.pem
 /notes
 
+# typescript build cache
+*.tsbuildinfo
+
 # debug
 npm-debug.log*
 yarn-debug.log*
